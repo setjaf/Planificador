@@ -12,6 +12,11 @@
             <cvt:TimeSpanConvertidor x:Key="tsConvertidor"/>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>        
+        <ToolbarItem Text="Editar titulo" Order="Secondary" Clicked="ToolbarItem_Clicked" CommandParameter="{Binding Path=TareaActual.Titulo}"/>
+        <ToolbarItem Text="Editar descripción" Order="Secondary" Clicked="ToolbarItem_Clicked_1" CommandParameter="{Binding Path=TareaActual.Descripcion}"/>
+        <ToolbarItem Text="Cambiar color" Order="Secondary" Clicked="ToolbarItem_Clicked_2" CommandParameter="{Binding Path=TareaActual.Color}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>        
         <StackLayout Padding="20, 20, 20, 0" Orientation="Vertical">
             <Label Text="Descripción" FontSize="Large" FontAttributes="Bold"/>

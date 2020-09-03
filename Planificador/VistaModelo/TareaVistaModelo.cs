@@ -80,7 +80,11 @@ namespace Planificador.VistaModelo
             get { return this._color; }
             set
             {
-                SetPropertyValue(ref _color, value);
+                if(SetPropertyValue(ref _color, value))
+                {
+                    RaisePropertyChanged("TextColor");
+                    RaisePropertyChanged("BackgroundColor");
+                }
             }
         }
 

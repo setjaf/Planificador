@@ -18,6 +18,9 @@ namespace Planificador.VistaModelo
         public ICommand RefrescarObjetivosCommand { get; private set; }
         public ICommand EliminarObjetivoCommand { get; private set; }
         public ICommand EliminarRecurrenciaCommand { get; private set; }
+        public ICommand EditarTituloCommand { get; private set; }
+        public ICommand EditarDescripcionCommand { get; private set; }
+        public ICommand EditarColorCommand { get; private set; }
 
         public TareaDetalleVistaModelo(TareaVistaModelo tarea)
         {
@@ -27,6 +30,9 @@ namespace Planificador.VistaModelo
             //RefrescarObjetivosCommand = new Command(TareaActual.CargarObjetivos);
             EliminarObjetivoCommand = new Command(EliminarObjetivo);
             EliminarRecurrenciaCommand = new Command(EliminarRecurrencia);
+            EditarTituloCommand = new Command(EditarTitulo);
+            EditarDescripcionCommand = new Command(EditarDescripcion);
+            EditarColorCommand = new Command(EditarColor);
         }
 
         public void AgregarObjetivo(object nuevoObjetivo)
@@ -48,6 +54,32 @@ namespace Planificador.VistaModelo
         {
             _tareasN.eliminarRecurrecia((int)idObjetivo);
             TareaActual.CargarRecurrencias();
+        }
+
+        private void EditarTitulo(object nuevoTitulo)
+        {
+            var nTitulo = (string)nuevoTitulo;
+            TareaActual.Titulo = nTitulo;
+            GuardarTarea();
+        }
+
+        private void EditarDescripcion(object nuevaDesc)
+        {
+            var nDesc = (string)nuevaDesc;
+            TareaActual.Descripcion = nDesc;
+            GuardarTarea();
+        }
+
+        private void EditarColor(object nuevoColor)
+        {
+            var nColor = (string)nuevoColor;
+            TareaActual.Color = nColor;
+            GuardarTarea();
+        }
+
+        private void GuardarTarea()
+        {
+            _tareasN.modificarTarea(TareaActual.Id, TareaActual.Titulo, TareaActual.Descripcion, TareaActual.Color);
         }
     }
 }

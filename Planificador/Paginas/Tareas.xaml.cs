@@ -40,11 +40,16 @@ namespace Planificador.Paginas
         private async void tareasList_ItemTapped_1(object sender, ItemTappedEventArgs e)
         {
             TareaVistaModelo tarea = (TareaVistaModelo) e.Item;
-            await Navigation.PushModalAsync(new NavigationPage(new TareaDetalle(tarea)) 
-                { 
-                    BarBackgroundColor = Color.FromHex(tarea.BackgroundColor),
-                    BarTextColor = Color.FromHex(tarea.TextColor)
-                });
+            var navPage = new NavigationPage(new TareaDetalle(tarea))
+            {
+                BarBackgroundColor = Color.FromHex(tarea.BackgroundColor),
+                BarTextColor = Color.FromHex(tarea.TextColor)
+            };
+
+            navPage.BindingContext = tarea;
+            navPage.SetBinding(NavigationPage.BarBackgroundColorProperty, path: "BackgroundColor");
+            navPage.SetBinding(NavigationPage.BarTextColorProperty, path: "TextColor");
+            await Navigation.PushModalAsync(navPage);
         }
 
         private async void MenuItem_Clicked(object sender, EventArgs e)

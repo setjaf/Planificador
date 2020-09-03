@@ -53,5 +53,33 @@ namespace Planificador.Paginas
             if (await DisplayAlert("Eliminar recurrencia", "¿Estás seguro de eliminar la recurrencia?", "Aceptar", "Cancelar"))
                 ViewModel.EliminarRecurrenciaCommand.Execute(((MenuItem)sender).CommandParameter);
         }
+
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            var cp = (string)((ToolbarItem)sender).CommandParameter;
+            var texto = await DisplayPromptAsync("Editar título", "Escribe aquí el nuevo título", "Guardar", "Cancelar", keyboard: Keyboard.Text, initialValue:cp);
+            if (!String.IsNullOrEmpty(texto))
+                ViewModel.EditarTituloCommand.Execute(texto);
+        }
+
+        private async void ToolbarItem_Clicked_1(object sender, EventArgs e)
+        {
+            var cp = (string)((ToolbarItem)sender).CommandParameter;
+            var texto = await DisplayPromptAsync("Editar descripción", "Escribe aquí la nueva descripción", "Guardar", "Cancelar", keyboard: Keyboard.Text, initialValue: cp);
+            if (!String.IsNullOrEmpty(texto))
+                ViewModel.EditarDescripcionCommand.Execute(texto);
+        }
+
+        private async void ToolbarItem_Clicked_2(object sender, EventArgs e)
+        {
+            var cp = (string)((ToolbarItem)sender).CommandParameter;
+            var texto = await DisplayPromptAsync("Editar color", "Escribe aquí el nuevo color", "Guardar", "Cancelar", keyboard: Keyboard.Text, maxLength:6, initialValue: cp);
+            if (!String.IsNullOrEmpty(texto) && texto.Length == 6)
+            {
+                ViewModel.EditarColorCommand.Execute(texto);
+            }                
+            else
+                await DisplayAlert("Error al guardar el color", "El texto que indica el color debe contener 6 caracteres que representan el color en hexadecimal", "Aceptar");
+        }
     }
 }
