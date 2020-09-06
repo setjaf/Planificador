@@ -22,7 +22,7 @@ namespace Planificador.Repositorios
 
         public List<Objetivo> consultarObjetivos(int idTarea)
         {
-            return conn.Table<Objetivo>().Where(x => x.idTarea == idTarea).ToList();
+            return conn.Table<Objetivo>().Where(x => x.idTarea == idTarea).OrderBy(x => x.finalizacionFecha).ToList();
         }
 
         public Objetivo consultarObjetivo(int idObjetivo)

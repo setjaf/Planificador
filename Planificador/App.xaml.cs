@@ -14,7 +14,7 @@ namespace Planificador
 
             new ConnectionManager(dbPath);
 
-            MainPage = new Planificador.MainPage();
+            MainPage = new Planificador.MainPage();            
         }
 
         protected override void OnStart()

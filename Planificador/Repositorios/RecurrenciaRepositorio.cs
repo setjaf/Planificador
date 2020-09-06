@@ -22,7 +22,7 @@ namespace Planificador.Repositorios
 
         public List<Recurrencia> consultarRecurrencias(int idTarea)
         {
-            return conn.Table<Recurrencia>().Where(x => x.idTarea == idTarea).ToList();
+            return conn.Table<Recurrencia>().Where(x => x.idTarea == idTarea).OrderBy(x => x.horaInicio).ToList();
         }
 
         public List<Recurrencia> consultarRecurrencias()

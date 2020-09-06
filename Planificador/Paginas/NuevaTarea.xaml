@@ -2,23 +2,22 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cvt ="clr-namespace:Planificador.Convertidores"
-             x:Class="Planificador.Paginas.NuevaTarea">
+             x:Class="Planificador.Paginas.NuevaTarea"
+             Title="Nueva Tarea">
     <ContentPage.Resources>
         <ResourceDictionary>
             <cvt:TareaColorConvertidor x:Key="tcConvertidor"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#FFF">
-            <Frame BackgroundColor="#1976D2">
-                <Label Text="Nueva Tarea" TextColor="#FFF" HorizontalOptions="Center" FontSize="Subtitle"/>
-            </Frame>
-            <Label Text="Titulo:" TextColor="#212121"/>
-            <Entry Text="{Binding Path=NuevaTarea.Titulo}" Placeholder="Titulo chido" TextColor="#757575" PlaceholderColor="#757575" Keyboard="Text"/>
-            <Label Text="Descripción:" TextColor="#212121"/>
-            <Entry Text="{Binding Path=NuevaTarea.Descripcion}" TextColor="#757575" PlaceholderColor="#757575" Keyboard="Text"/>
-            <Label Text="Color en hexadecimal:" TextColor="#212121"/>
-            <Entry Text="{Binding Path=NuevaTarea.Color}" TextColor="#757575" PlaceholderColor="#757575" MaxLength="6"/>
+        <StackLayout Padding="20, 20, 20, 0">
+            <Label Text="Titulo:"/>
+            <Entry Text="{Binding Path=NuevaTarea.Titulo}" Keyboard="Text"/>
+            <Label Text="Descripción:"/>
+            <Entry Text="{Binding Path=NuevaTarea.Descripcion}" Keyboard="Text"/>
+            <Label Text="Color en hexadecimal:"/>
+            <Picker ItemsSource="{Binding Colores}" SelectedItem="{Binding Path=NuevaTarea.Color}"/>
+            <Entry Text="{Binding Path=NuevaTarea.Color}" MaxLength="6"/>
             <BoxView CornerRadius="10"
                 WidthRequest="40"
                 HeightRequest="40"
@@ -29,8 +28,8 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Button Text="Cancelar" TextColor="Black" BackgroundColor="#FFF" Grid.Column="0" Command="{Binding CerrarNuevaTareaCommand}"/>
-                <Button Text="Guardar" TextColor="White" BackgroundColor="#FF4081" Grid.Column="1" Command="{Binding AgregarTareaCommand}"/>
+                <Button Text="Cancelar" Grid.Column="0" Command="{Binding CerrarNuevaTareaCommand}"/>
+                <Button Text="Guardar" Grid.Column="1" Command="{Binding AgregarTareaCommand}"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

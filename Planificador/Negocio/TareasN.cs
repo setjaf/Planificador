@@ -134,12 +134,13 @@ namespace Planificador.Negocio
             {
                 if(recur.dia == recurrencia.dia)
                 {
-                    if (recur.horaInicio >= recurrencia.horaInicio && recurrencia.horaInicio < recur.horaInicio.Add(new TimeSpan(0, recur.duracion, 0)))
+                    var horaFin = recur.horaInicio.Add(new TimeSpan(0, recur.duracion, 0));
+                    if (recur.horaInicio <= recurrencia.horaInicio && recurrencia.horaInicio < horaFin)
                     {
                         recurError = recur;
                         break;
                     }
-                    else if (recur.horaInicio > recurrencia.horaInicio.Add(new TimeSpan(0,recurrencia.duracion,0)) && recurrencia.horaInicio.Add(new TimeSpan(0, recurrencia.duracion, 0)) <= recur.horaInicio.Add(new TimeSpan(0, recur.duracion, 0)))
+                    else if (recur.horaInicio < recurrencia.horaInicio.Add(new TimeSpan(0,recurrencia.duracion,0)) && recurrencia.horaInicio.Add(new TimeSpan(0, recurrencia.duracion, 0)) <= horaFin)
                     {
                         recurError = recur;
                         break;

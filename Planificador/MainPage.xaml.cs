@@ -12,7 +12,7 @@ namespace Planificador
     {
         public MainPage()
         {
-            InitializeComponent();
+            InitializeComponent();            
             Children.Add(new Paginas.Tareas());
             Children.Add(new Paginas.Calendario());
         }

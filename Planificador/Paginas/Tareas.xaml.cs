@@ -59,5 +59,10 @@ namespace Planificador.Paginas
                 ViewModel.EliminarTareaCommand.Execute(((MenuItem)sender).CommandParameter);
             }
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushModalAsync(new NavigationPage(new NuevaTarea()));
+        }
     }
 }

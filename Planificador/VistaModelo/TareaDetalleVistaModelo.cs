@@ -27,7 +27,7 @@ namespace Planificador.VistaModelo
             _tareasN = new TareasN();
             TareaActual = tarea;
             AgregarObjetivoCommand = new Command(AgregarObjetivo);
-            //RefrescarObjetivosCommand = new Command(TareaActual.CargarObjetivos);
+            RefrescarObjetivosCommand = new Command(TareaActual.CargarObjetivos);
             EliminarObjetivoCommand = new Command(EliminarObjetivo);
             EliminarRecurrenciaCommand = new Command(EliminarRecurrencia);
             EditarTituloCommand = new Command(EditarTitulo);
@@ -46,13 +46,13 @@ namespace Planificador.VistaModelo
 
         public void EliminarObjetivo(object idObjetivo)
         {
-            var id = (int)idObjetivo;
-            _tareasN.eliminarObjetivo(id);
+            _tareasN.eliminarObjetivo((int)idObjetivo);
+            TareaActual.CargarObjetivos();
         }
 
-        private void EliminarRecurrencia(object idObjetivo)
+        private void EliminarRecurrencia(object idRecurrencia)
         {
-            _tareasN.eliminarRecurrecia((int)idObjetivo);
+            _tareasN.eliminarRecurrecia((int)idRecurrencia);
             TareaActual.CargarRecurrencias();
         }
 

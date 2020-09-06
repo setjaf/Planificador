@@ -23,6 +23,7 @@ namespace Planificador.VistaModelo
 
         public NuevaRecurrenciaVistaModelo(TareaVistaModelo tarea, INavigation nav, Page page)
         {
+            _duracion = "0";
             _page = page;
             TareaActual = tarea;
             TareaActual.CargarRecurrencias();

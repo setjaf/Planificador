@@ -13,9 +13,7 @@ namespace Planificador.VistaModelo
     public class TareasVistaModelo : BaseVistaModelo
     {
         private TareasN _tareaNegocio;
-        private INavigation _navigation;
         public ObservableCollection<TareaVistaModelo> ListaTareas { get; private set; }
-        public ICommand AbrirNuevaTareaCommand { get; private set; }
         public ICommand CargarTareasCommand { get; private set; }
         public ICommand EliminarTareaCommand { get; private set; }
 
@@ -23,10 +21,7 @@ namespace Planificador.VistaModelo
         {
             _tareaNegocio = new TareasN();
 
-            _navigation = navigation;
-
             CargarTareasCommand = new Command(CargarTareas);
-            AbrirNuevaTareaCommand = new Command(AbrirNuevaTarea);
             EliminarTareaCommand = new Command(EliminarTarea);
 
             ListaTareas = new ObservableCollection<TareaVistaModelo>();
@@ -39,11 +34,6 @@ namespace Planificador.VistaModelo
             {
                 ListaTareas.Add(new TareaVistaModelo(tarea));
             } 
-        }
-
-        public void AbrirNuevaTarea()
-        {
-            _navigation.PushModalAsync(new NuevaTarea());
         }
 
         public void EliminarTarea(object idTarea)

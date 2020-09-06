@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cvt ="clr-namespace:Planificador.Convertidores"
-             x:Class="Planificador.Paginas.TareaDetalle"
+             xmlns:local ="clr-namespace:Planificador.VistaModelo"
+             x:Class="Planificador.Paginas.TareaDetalle"             
              Title="{Binding Path=TareaActual.Titulo}"
-             BackgroundColor="White"
              >
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -20,12 +20,12 @@
     <ContentPage.Content>        
         <StackLayout Padding="20, 20, 20, 0" Orientation="Vertical">
             <Label Text="Descripción" FontSize="Large" FontAttributes="Bold"/>
-            <Label Text="{Binding Path=TareaActual.Descripcion}" TextColor="Black" FontSize="Body"/>
+            <Label Text="{Binding Path=TareaActual.Descripcion}" FontSize="Body"/>
             <Grid HorizontalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.3*"/>
                     <RowDefinition />
-                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.3*"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -33,7 +33,7 @@
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 <Label Text="Objetivos" FontSize="Large" FontAttributes="Bold" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Start"/>
-                <ListView ItemsSource="{Binding Path=TareaActual.Objetivos}" Grid.Row="1" Grid.Column="0">
+                <ListView ItemsSource="{Binding Path=TareaActual.Objetivos}" Grid.Row="1" Grid.Column="0" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -45,8 +45,10 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <CheckBox Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="End" Color="Gray" IsChecked="{Binding FinalizacionFecha, Converter={StaticResource ffConvertidor}, Mode=TwoWay}"/>
-                                    <Label Text="{Binding Objetivo}" TextColor="Black" Grid.Column="1" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                    <CheckBox Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="End" Color="{Binding Source={RelativeSource AncestorType={x:Type local:TareaVistaModelo}}, Path=TextColor}" 
+                                              IsChecked="{Binding FinalizacionFecha, Converter={StaticResource ffConvertidor}, Mode=TwoWay}"
+                                              />
+                                    <Label Text="{Binding Objetivo}"  Grid.Column="1" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Start"/>
                                 </Grid>
                                 <ViewCell.ContextActions>
                                     <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
@@ -73,14 +75,14 @@
                         <RowDefinition Height="10*" />
                     </Grid.RowDefinitions>
                     <BoxView Color="{Binding Path=TareaActual.BackgroundColor}"/>
-                    <Label Text="Lunes" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Lunes" LineBreakMode="TailTruncation" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Lunes}" Grid.Row="1" VerticalOptions="Center">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <StackLayout>
-                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" />
-                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}"/>
+                                    <StackLayout >
+                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
                                     </StackLayout>
                                     <ViewCell.ContextActions>
                                         <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked_1" CommandParameter="{Binding Id}" />
@@ -90,14 +92,14 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="1" />
-                    <Label Text="Martes" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Martes" LineBreakMode="TailTruncation" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Martes}" Grid.Row="1"  Grid.Column="1" VerticalOptions="Center">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout>
-                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" />
-                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}"/>
+                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
                                     </StackLayout>
                                     <ViewCell.ContextActions>
                                         <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked_1" CommandParameter="{Binding Id}" />
@@ -107,14 +109,14 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="2" />
-                    <Label Text="Miércoles" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Miércoles" LineBreakMode="TailTruncation" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Miercoles}" Grid.Row="1"  Grid.Column="2" VerticalOptions="Center">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout>
-                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" />
-                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}"/>
+                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
                                     </StackLayout>
                                     <ViewCell.ContextActions>
                                         <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked_1" CommandParameter="{Binding Id}" />
@@ -124,14 +126,14 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="3" />
-                    <Label Text="Jueves" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Jueves" LineBreakMode="TailTruncation" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Jueves}" Grid.Row="1" Grid.Column="3" VerticalOptions="Center">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout>
-                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" />
-                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}"/>
+                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
                                     </StackLayout>
                                     <ViewCell.ContextActions>
                                         <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked_1" CommandParameter="{Binding Id}" />
@@ -141,14 +143,14 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="4" />
-                    <Label Text="Viernes" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Viernes" LineBreakMode="TailTruncation" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Viernes}" Grid.Row="1" Grid.Column="4" VerticalOptions="Center">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout>
-                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" />
-                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}"/>
+                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
                                     </StackLayout>
                                     <ViewCell.ContextActions>
                                         <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked_1" CommandParameter="{Binding Id}" />
@@ -158,14 +160,14 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="5" />
-                    <Label Text="Sábado" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Sábado" LineBreakMode="TailTruncation" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Sabado}" Grid.Row="1" Grid.Column="5" VerticalOptions="Center">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout>
-                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" />
-                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}"/>
+                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
                                     </StackLayout>
                                     <ViewCell.ContextActions>
                                         <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked_1" CommandParameter="{Binding Id}" />
@@ -175,14 +177,14 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="6" />
-                    <Label Text="Domingo" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="6" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Domingo" LineBreakMode="TailTruncation" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="6" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Domingo}" Grid.Row="1" Grid.Column="6" VerticalOptions="Center">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
                                     <StackLayout>
-                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" />
-                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}"/>
+                                        <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                        <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
                                     </StackLayout>
                                     <ViewCell.ContextActions>
                                         <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked_1" CommandParameter="{Binding Id}" />

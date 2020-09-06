@@ -15,7 +15,7 @@ namespace Planificador.Paginas
     {
         public TareaDetalle(TareaVistaModelo tareaVistaModelo)
         {
-            ViewModel = new TareaDetalleVistaModelo( tareaVistaModelo);
+            ViewModel = new TareaDetalleVistaModelo( tareaVistaModelo); 
             InitializeComponent();
         }
 
@@ -31,7 +31,6 @@ namespace Planificador.Paginas
             if(await DisplayAlert("Eliminar objetivo", "¿Estás seguro de eliminar el objetivo?","Sí", "No"))
             {
                 ViewModel.EliminarObjetivoCommand.Execute(mi.CommandParameter);
-                ViewModel.RefrescarObjetivosCommand.Execute(null);
             }
             
         }
@@ -81,5 +80,6 @@ namespace Planificador.Paginas
             else
                 await DisplayAlert("Error al guardar el color", "El texto que indica el color debe contener 6 caracteres que representan el color en hexadecimal", "Aceptar");
         }
+
     }
 }
