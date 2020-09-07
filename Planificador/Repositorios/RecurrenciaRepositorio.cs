@@ -25,6 +25,11 @@ namespace Planificador.Repositorios
             return conn.Table<Recurrencia>().Where(x => x.idTarea == idTarea).OrderBy(x => x.horaInicio).ToList();
         }
 
+        public List<Recurrencia> consultarRecurrenciasPorDia(int dia)
+        {
+            return conn.Table<Recurrencia>().Where(x => x.dia == dia).OrderBy(x => x.horaInicio).ToList();
+        }
+
         public List<Recurrencia> consultarRecurrencias()
         {
             return conn.Table<Recurrencia>().OrderBy(x => x.horaInicio).ToList();

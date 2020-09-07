@@ -17,7 +17,7 @@ namespace Planificador.Repositorios
             conn.CreateTable<Objetivo>();
             conn.CreateTable<Recurrencia>();
             conn.CreateTable<Actividad>();
-
+            conn.CreateTable<RecurrenciasCargadas>();
         }
 
         public static SQLiteConnection getConnection()

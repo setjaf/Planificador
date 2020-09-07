@@ -65,25 +65,25 @@ namespace Planificador.VistaModelo
             {
                 switch (recurrencia.dia)
                 {
-                    case 0:
+                    case (int)DayOfWeek.Monday:
                         _lunes.Add(new RecurrenciaVistaModelo(recurrencia));
                         break;
-                    case 1:
+                    case (int)DayOfWeek.Tuesday:
                         _martes.Add(new RecurrenciaVistaModelo(recurrencia));
                         break;
-                    case 2:
+                    case (int)DayOfWeek.Wednesday:
                         _miercoles.Add(new RecurrenciaVistaModelo(recurrencia));
                         break;
-                    case 3:
+                    case (int)DayOfWeek.Thursday:
                         _jueves.Add(new RecurrenciaVistaModelo(recurrencia));
                         break;
-                    case 4:
+                    case (int)DayOfWeek.Friday:
                         _viernes.Add(new RecurrenciaVistaModelo(recurrencia));
                         break;
-                    case 5:
+                    case (int)DayOfWeek.Saturday:
                         _sabado.Add(new RecurrenciaVistaModelo(recurrencia));
                         break;
-                    case 6:
+                    case (int)DayOfWeek.Sunday:
                         _domingo.Add(new RecurrenciaVistaModelo(recurrencia));
                         break;
                     default:

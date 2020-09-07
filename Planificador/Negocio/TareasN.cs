@@ -130,7 +130,7 @@ namespace Planificador.Negocio
         public Recurrencia? verificarNuevaRecurrencia(Recurrencia recurrencia)
         {
             Recurrencia recurError = null;
-            foreach(var recur in _recurrenciaRepo.consultarRecurrencias())
+            foreach(var recur in _recurrenciaRepo.consultarRecurrenciasPorDia(recurrencia.dia))
             {
                 if(recur.dia == recurrencia.dia)
                 {

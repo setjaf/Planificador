@@ -21,9 +21,12 @@ namespace Planificador.Modelos
         [NotNull]
         public int duracion { get; set; }
 
-        public string descripcion { get; set; }
+        [MaxLength(150)]
+        public string? titulo { get; set; }
+
+        public string? descripcion { get; set; }
 
         [MaxLength(7)]
-        public string color { get; set; }
+        public string? color { get; set; }
     }
 }

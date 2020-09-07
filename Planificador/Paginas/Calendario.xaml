@@ -5,6 +5,11 @@
              Title="Calendario">
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="&lt;" WidthRequest="50" BackgroundColor="Transparent" Command="{Binding DiaAnteriorCommand}" />
+                <Label Text="{Binding DiaSeleccionado}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Large"/>
+                <Button Text=">" WidthRequest="50" BackgroundColor="Transparent" Command="{Binding DiaSiguienteCommand}"/>
+            </StackLayout>
             <ScrollView >
                 <Grid>
                     <Grid.RowDefinitions>
