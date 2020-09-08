@@ -15,6 +15,9 @@ namespace Planificador
             InitializeComponent();            
             Children.Add(new Paginas.Tareas());
             Children.Add(new Paginas.Calendario());
+            
         }
+        
+
     }
 }

@@ -11,18 +11,25 @@ namespace Planificador.Negocio
         private TareaRepositorio _tareaRepo;
         private ActividadRepositorio _actividadRepo;
         private RecurrenciaRepositorio _recurRepo;
+        private RecurrenciasCargadasRepositorio _recurCarRepo;
 
         public ActividadesN()
         {
             _tareaRepo = new TareaRepositorio();
             _actividadRepo = new ActividadRepositorio();
             _recurRepo = new RecurrenciaRepositorio();
+            _recurCarRepo = new RecurrenciasCargadasRepositorio();
 
 
         }
 
         public List<Actividad> listarActividades(DateTime dia)
         {
+            if (_recurCarRepo.consultarRecurrenciasCargadas(dia) == null)
+            {
+                cargarRecurrencias(dia);                
+                _recurCarRepo.agregarRecurrenciasCargadas(new RecurrenciasCargadas() { dia = DateTime.Now.Date });
+            }
             return _actividadRepo.consultarActividadesPorDia(dia);
         }
 
@@ -59,6 +66,7 @@ namespace Planificador.Negocio
                 duracion = duracion,
                 horaInicio = horaInicio,
                 idTarea = null,
+                esRecurrencia = false,
             };
             if (idTarea == -1)
             {

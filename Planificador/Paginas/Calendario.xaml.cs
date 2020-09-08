@@ -15,8 +15,24 @@ namespace Planificador.Paginas
     {
         public Calendario()
         {
-            BindingContext = new CalendarioVistaModelo();
+
+            ViewModel = new CalendarioVistaModelo();
             InitializeComponent();
+        }
+
+        public CalendarioVistaModelo ViewModel
+        {
+            get { return BindingContext as CalendarioVistaModelo; }
+            set
+            {
+                BindingContext = value;
+            }
+        }
+
+        protected override void OnAppearing()
+        {
+            ViewModel.CargarActividadesCommand.Execute(null);
+            base.OnAppearing();
         }
     }
 }

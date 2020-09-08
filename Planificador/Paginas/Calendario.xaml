@@ -21,8 +21,52 @@
                     </Grid.ColumnDefinitions>
 
                     <StackLayout>
-                        <CollectionView HeightRequest="1440">
+                        <CollectionView HeightRequest="1450" VerticalScrollBarVisibility="Never">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
+                            </CollectionView.ItemsLayout>
                             <CollectionView.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>00:00</x:String>
+                                    <x:String>01:00</x:String>
+                                    <x:String>02:00</x:String>
+                                    <x:String>03:00</x:String>
+                                    <x:String>04:00</x:String>
+                                    <x:String>05:00</x:String>
+                                    <x:String>06:00</x:String>
+                                    <x:String>07:00</x:String>
+                                    <x:String>08:00</x:String>
+                                    <x:String>09:00</x:String>
+                                    <x:String>10:00</x:String>
+                                    <x:String>11:00</x:String>
+                                    <x:String>12:00</x:String>
+                                    <x:String>13:00</x:String>
+                                    <x:String>14:00</x:String>
+                                    <x:String>15:00</x:String>
+                                    <x:String>16:00</x:String>
+                                    <x:String>17:00</x:String>
+                                    <x:String>18:00</x:String>
+                                    <x:String>19:00</x:String>
+                                    <x:String>20:00</x:String>
+                                    <x:String>21:00</x:String>
+                                    <x:String>22:00</x:String>
+                                    <x:String>23:00</x:String>
+                                </x:Array>
+                            </CollectionView.ItemsSource>
+                            
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="60" Spacing="0" Padding="0,0,0,0" Margin="0,0,0,0">
+                                        <BoxView BackgroundColor="Gray" HeightRequest="1" />
+                                        <Label Text="{Binding .}" HorizontalOptions="Center" VerticalOptions="StartAndExpand" />
+                                        <BoxView BackgroundColor="Gray" HeightRequest="1" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <!--<ListView HeightRequest="1440" SelectionMode="None">
+                            <ListView.ItemsSource>
                                 <x:Array Type="{x:Type x:String}">
                                     <x:String>00:00</x:String>
                                     <x:String>01:00</x:String>
@@ -50,29 +94,29 @@
                                     <x:String>23:00</x:String>
                                     <x:String>24:00</x:String>
                                 </x:Array>
-                            </CollectionView.ItemsSource>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" HeightRequest="60">
-                                        <BoxView BackgroundColor="Gray" HeightRequest="1" />
-                                        <Label Text="{Binding .}" HorizontalOptions="Center" VerticalOptions="Center" />
-                                    </StackLayout>
+                            </ListView.ItemsSource>
+                            <ListView.ItemTemplate>
+                                <DataTemplate >
+                                    <ViewCell Height="60" >
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="60">
+                                            <Label Text="{Binding .}" HorizontalOptions="Center" VerticalOptions="Center" />
+                                        </StackLayout>
+                                    </ViewCell>
                                 </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                            </ListView.ItemTemplate>
+                        </ListView>-->
                     </StackLayout>
-                    <AbsoluteLayout Grid.Column="1">
-
+                    <AbsoluteLayout Grid.Column="1" BindableLayout.ItemsSource="{Binding Actividades}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Button Text="Prueba" BackgroundColor="Gray" CornerRadius="0" AbsoluteLayout.LayoutBounds="0,0,1,60"
+                                <Button Text="{Binding Titulo}" BackgroundColor="{Binding BackgroundColor}" CornerRadius="0" AbsoluteLayout.LayoutBounds="{Binding Posicion}"
                                     AbsoluteLayout.LayoutFlags="WidthProportional"/>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
 
-                        
-                        <Button Text="Prueba" BackgroundColor="Gray" CornerRadius="0" AbsoluteLayout.LayoutBounds="0,60,1,120"
-                            AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="Gray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,60,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <!--<Button Text="Prueba" BackgroundColor="Gray" CornerRadius="0" AbsoluteLayout.LayoutBounds="0,60,1,120"
+                            AbsoluteLayout.LayoutFlags="WidthProportional"/>-->
 
                     </AbsoluteLayout>
 

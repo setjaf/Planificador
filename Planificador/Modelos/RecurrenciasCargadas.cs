@@ -9,6 +9,7 @@ namespace Planificador.Modelos
     {
         [PrimaryKey, AutoIncrement]
         public int id { get; set; }
+
         [NotNull]
         public DateTime dia { get; set; }
     }

@@ -11,7 +11,7 @@ namespace Planificador.Repositorios
         private static SQLiteConnection conn;
         public ConnectionManager(string dbPath)
         {
-            conn = new SQLiteConnection(dbPath);
+            conn = new SQLiteConnection(dbPath, true);
 
             conn.CreateTable<Tarea>();
             conn.CreateTable<Objetivo>();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SQLite;
 using Planificador.Modelos;
+using System.Linq;
 
 namespace Planificador.Repositorios
 {
@@ -27,12 +28,30 @@ namespace Planificador.Repositorios
 
         public List<Actividad> consultarActividadesPorDia(DateTime dia)
         {
-            return conn.Table<Actividad>().Where(x => x.dia.Date.Equals(dia.Date)).ToList();
+            return conn.Table<Actividad>().ToList().Where(x => x.dia.Date == dia.Date).ToList();
         }
 
         public List<Actividad> consultarActividadesPorTarea(int idTarea)
         {
             return conn.Table<Actividad>().Where(x => x.idTarea == idTarea).ToList();
+        }
+
+        public int eliminarActividadesPorRecurrencia(Recurrencia recur)
+        {
+            int contador = 0;
+            List<Actividad> actividades = conn.Table<Actividad>()
+                .ToList()
+                .Where(x => x.esRecurrencia 
+                    && ((int)x.dia.DayOfWeek == recur.dia) 
+                    && (recur.duracion == x.duracion) 
+                    && (recur.horaInicio == x.horaInicio))
+                .ToList();
+            foreach (var actividad in actividades)
+            {
+                if (eliminarActividad(actividad.id) > 0)
+                    contador++;
+            }
+            return contador;
         }
 
         public int editarActividad(Actividad actividad)

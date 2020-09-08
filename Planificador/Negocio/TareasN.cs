@@ -11,12 +11,16 @@ namespace Planificador.Negocio
         private TareaRepositorio _tareaRepo;
         private ObjetivoRepositorio _objetivoRepo;
         private RecurrenciaRepositorio _recurrenciaRepo;
+        private ActividadRepositorio _actividadRepo;
+        private RecurrenciasCargadasRepositorio _recCarRepo;
 
         public TareasN()
         {
             _tareaRepo = new TareaRepositorio();
             _objetivoRepo = new ObjetivoRepositorio();
             _recurrenciaRepo = new RecurrenciaRepositorio();
+            _recCarRepo = new RecurrenciasCargadasRepositorio();
+            _actividadRepo = new ActividadRepositorio();
         }
 
         public List<Tarea> listarTareas()
@@ -122,9 +126,71 @@ namespace Planificador.Negocio
             var resultado = verificarNuevaRecurrencia(nuevaRecurrencia);
             if ( resultado == null)
                 if (_recurrenciaRepo.agregarRecurrencia(nuevaRecurrencia) > 0)
+                {
+                    foreach (var recCar in _recCarRepo.consultarRecurrenciasCargadasPorDiaSemana((DayOfWeek)nuevaRecurrencia.dia))
+                    {
+                        cargarRecurrencia(nuevaRecurrencia,recCar.dia);                        
+                    }
                     return null;
+                }
             
             return resultado;
+        }
+
+        public bool cargarRecurrencia(Recurrencia recurrencia, DateTime dia)
+        {
+            if (agregarActividad(recurrencia.horaInicio, dia, recurrencia.duracion, recurrencia.idTarea))
+                return true;
+            return false;
+        }
+
+        public bool agregarActividad(TimeSpan horaInicio, DateTime dia, int duracion, int idTarea = -1, string descripcion = null, string titulo = null, string color = null)
+        {
+            var nuevaActividad = new Actividad()
+            {
+                dia = dia,
+                duracion = duracion,
+                horaInicio = horaInicio,
+                idTarea = null,
+                esRecurrencia = true
+            };
+            if (idTarea == -1)
+            {
+                nuevaActividad.descripcion = descripcion;
+                nuevaActividad.titulo = titulo;
+                nuevaActividad.color = color;
+            }
+            else
+            {
+                nuevaActividad.idTarea = idTarea;
+            }
+
+            if (verificarNuevaActividad(nuevaActividad))
+            {
+                if (_actividadRepo.agregarActividad(nuevaActividad) > 0)
+                    return true;
+            }
+            return false;
+        }
+
+        private bool verificarNuevaActividad(Actividad actividad)
+        {
+
+            var actividades = _actividadRepo.consultarActividadesPorDia(actividad.dia);
+            foreach (var activ in actividades)
+            {
+                var horaFin = activ.horaInicio.Add(new TimeSpan(0, activ.duracion, 0));
+                if (activ.horaInicio <= actividad.horaInicio && actividad.horaInicio < horaFin)
+                {
+                    return false;
+                }
+                else if (activ.horaInicio < actividad.horaInicio.Add(new TimeSpan(0, actividad.duracion, 0)) && actividad.horaInicio.Add(new TimeSpan(0, actividad.duracion, 0)) <= horaFin)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public Recurrencia? verificarNuevaRecurrencia(Recurrencia recurrencia)
@@ -161,8 +227,12 @@ namespace Planificador.Negocio
 
         public bool eliminarRecurrecia(int IdRecurrencia)
         {
+            Recurrencia recur = _recurrenciaRepo.consultarRecurrencia(IdRecurrencia);
             if (_recurrenciaRepo.eliminarRecurrencia(IdRecurrencia) > 0)
+            {
+                _actividadRepo.eliminarActividadesPorRecurrencia(recur);
                 return true;
+            }                
             else
                 return false;
         }

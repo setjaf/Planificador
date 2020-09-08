@@ -26,7 +26,10 @@ namespace Planificador.Modelos
 
         public string? descripcion { get; set; }
 
-        [MaxLength(7)]
+        [MaxLength(6)]
         public string? color { get; set; }
+
+        [NotNull]
+        public bool esRecurrencia { get; set; }
     }
 }
