@@ -134,10 +134,20 @@
                     <AbsoluteLayout Grid.Column="1" BindableLayout.ItemsSource="{Binding Actividades}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <Button Text="{Binding Titulo}" BackgroundColor="{Binding BackgroundColor}" CornerRadius="0" AbsoluteLayout.LayoutBounds="{Binding Posicion}"
-                                    AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                                <!--<Button Text="{Binding Titulo}" BackgroundColor="{Binding BackgroundColor}" CornerRadius="0" AbsoluteLayout.LayoutBounds="{Binding Posicion}"
+                                    AbsoluteLayout.LayoutFlags="WidthProportional"/>-->
+                                <Frame BackgroundColor="{Binding BackgroundColor}" AbsoluteLayout.LayoutBounds="{Binding Posicion}"
+                                    AbsoluteLayout.LayoutFlags="WidthProportional">
+                                    <Label Text="{Binding Titulo}"/>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
+                        <AbsoluteLayout.GestureRecognizers>
+                            <PinchGestureRecognizer PinchUpdated="PinchGestureRecognizer_PinchUpdated"/>
+                        </AbsoluteLayout.GestureRecognizers>
                     </AbsoluteLayout>
 
                 </Grid>

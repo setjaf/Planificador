@@ -68,7 +68,7 @@ namespace Planificador.Negocio
                 }
                 foreach (var recurrencia in this.consultarRecurrencias(IdTarea))
                 {
-                    this.eliminarObjetivo(recurrencia.id);
+                    this.eliminarRecurrecia(recurrencia.id);
                 }
                 return true;
             }

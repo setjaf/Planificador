@@ -34,5 +34,16 @@ namespace Planificador.Paginas
             ViewModel.CargarActividadesCommand.Execute(null);
             base.OnAppearing();
         }
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            Console.WriteLine("prueba");
+        }
+
+        private void PinchGestureRecognizer_PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
+        {
+            var hola = e;
+            Console.WriteLine("Piched");
+        }
     }
 }
