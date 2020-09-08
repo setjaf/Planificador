@@ -10,27 +10,44 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Padding="20, 20, 20, 0">
-            <Label Text="Titulo:"/>
-            <Entry Text="{Binding Path=NuevaTarea.Titulo}" Keyboard="Text"/>
-            <Label Text="Descripción:"/>
-            <Entry Text="{Binding Path=NuevaTarea.Descripcion}" Keyboard="Text"/>
-            <Label Text="Color en hexadecimal:"/>
-            <Picker ItemsSource="{Binding Colores}" SelectedItem="{Binding Path=NuevaTarea.Color}"/>
-            <Entry Text="{Binding Path=NuevaTarea.Color}" MaxLength="6"/>
-            <BoxView CornerRadius="10"
+        <ScrollView>
+            <StackLayout Padding="20, 20, 20, 0">
+                <Label Text="Titulo"/>
+                <Entry Text="{Binding Path=NuevaTarea.Titulo}" Keyboard="Text"/>
+                
+                <Label Text="Descripción"/>
+                <Entry Text="{Binding Path=NuevaTarea.Descripcion}" Keyboard="Text"/>
+                
+                <Label Text="Color"/>
+                <CollectionView ItemsSource="{Binding Colores}" HeightRequest="85" SelectionMode="Single" VerticalOptions="Start" SelectedItem="{Binding Path=NuevaTarea.Color}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Horizontal" Span="2"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <BoxView HeightRequest="40" WidthRequest="40" HorizontalOptions="Center" CornerRadius="20" BackgroundColor="{Binding ., StringFormat='#{0}'}"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <BoxView CornerRadius="10"
                 WidthRequest="40"
                 HeightRequest="40"
                 VerticalOptions="Center" 
                 BackgroundColor="{Binding Path=NuevaTarea.Color, Converter={StaticResource tcConvertidor}, Mode=OneWay}"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Button Text="Cancelar" Grid.Column="0" Command="{Binding CerrarNuevaTareaCommand}"/>
-                <Button Text="Guardar" Grid.Column="1" Command="{Binding AgregarTareaCommand}"/>
-            </Grid>
-        </StackLayout>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Text="Cancelar" Grid.Column="0" Command="{Binding CerrarNuevaTareaCommand}"/>
+                    <Button Text="Guardar" Grid.Column="1" Command="{Binding AgregarTareaCommand}"/>
+                </Grid>
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

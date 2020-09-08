@@ -11,7 +11,8 @@
                 <Button Text=">" WidthRequest="50" BackgroundColor="Transparent" Command="{Binding DiaSiguienteCommand}"/>
             </StackLayout>
             <ScrollView >
-                <Grid>
+                <Grid ColumnSpacing="0">
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
@@ -21,91 +22,115 @@
                     </Grid.ColumnDefinitions>
 
                     <StackLayout>
-                        <CollectionView HeightRequest="1450" VerticalScrollBarVisibility="Never">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout ItemSpacing="0" Orientation="Vertical"/>
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemsSource>
-                                <x:Array Type="{x:Type x:String}">
-                                    <x:String>00:00</x:String>
-                                    <x:String>01:00</x:String>
-                                    <x:String>02:00</x:String>
-                                    <x:String>03:00</x:String>
-                                    <x:String>04:00</x:String>
-                                    <x:String>05:00</x:String>
-                                    <x:String>06:00</x:String>
-                                    <x:String>07:00</x:String>
-                                    <x:String>08:00</x:String>
-                                    <x:String>09:00</x:String>
-                                    <x:String>10:00</x:String>
-                                    <x:String>11:00</x:String>
-                                    <x:String>12:00</x:String>
-                                    <x:String>13:00</x:String>
-                                    <x:String>14:00</x:String>
-                                    <x:String>15:00</x:String>
-                                    <x:String>16:00</x:String>
-                                    <x:String>17:00</x:String>
-                                    <x:String>18:00</x:String>
-                                    <x:String>19:00</x:String>
-                                    <x:String>20:00</x:String>
-                                    <x:String>21:00</x:String>
-                                    <x:String>22:00</x:String>
-                                    <x:String>23:00</x:String>
-                                </x:Array>
-                            </CollectionView.ItemsSource>
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="60"/>
+                            </Grid.RowDefinitions>
                             
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="60" Spacing="0" Padding="0,0,0,0" Margin="0,0,0,0">
-                                        <BoxView BackgroundColor="Gray" HeightRequest="1" />
-                                        <Label Text="{Binding .}" HorizontalOptions="Center" VerticalOptions="StartAndExpand" />
-                                        <BoxView BackgroundColor="Gray" HeightRequest="1" />
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-
-                        <!--<ListView HeightRequest="1440" SelectionMode="None">
-                            <ListView.ItemsSource>
-                                <x:Array Type="{x:Type x:String}">
-                                    <x:String>00:00</x:String>
-                                    <x:String>01:00</x:String>
-                                    <x:String>02:00</x:String>
-                                    <x:String>03:00</x:String>
-                                    <x:String>04:00</x:String>
-                                    <x:String>05:00</x:String>
-                                    <x:String>06:00</x:String>
-                                    <x:String>07:00</x:String>
-                                    <x:String>08:00</x:String>
-                                    <x:String>09:00</x:String>
-                                    <x:String>10:00</x:String>
-                                    <x:String>11:00</x:String>
-                                    <x:String>12:00</x:String>
-                                    <x:String>13:00</x:String>
-                                    <x:String>14:00</x:String>
-                                    <x:String>15:00</x:String>
-                                    <x:String>16:00</x:String>
-                                    <x:String>17:00</x:String>
-                                    <x:String>18:00</x:String>
-                                    <x:String>19:00</x:String>
-                                    <x:String>20:00</x:String>
-                                    <x:String>21:00</x:String>
-                                    <x:String>22:00</x:String>
-                                    <x:String>23:00</x:String>
-                                    <x:String>24:00</x:String>
-                                </x:Array>
-                            </ListView.ItemsSource>
-                            <ListView.ItemTemplate>
-                                <DataTemplate >
-                                    <ViewCell Height="60" >
-                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="60">
-                                            <Label Text="{Binding .}" HorizontalOptions="Center" VerticalOptions="Center" />
-                                        </StackLayout>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>-->
+                            <BoxView BackgroundColor="LightGray" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="00:00" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="1" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="01:00" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="2" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="02:00" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="3" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="03:00" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="4" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="04:00" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="5" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="05:00" Grid.Row="5" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="6" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="06:00" Grid.Row="6" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="7" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="07:00" Grid.Row="7" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="8" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="08:00" Grid.Row="8" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="9" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="09:00" Grid.Row="9" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="10" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="10:00" Grid.Row="10" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="11" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="11:00" Grid.Row="11" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="12" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="12:00" Grid.Row="12" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="13" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="13:00" Grid.Row="13" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="14" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="14:00" Grid.Row="14" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="15" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="15:00" Grid.Row="15" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="16" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="16:00" Grid.Row="16" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="17" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="17:00" Grid.Row="17" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="18" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="18:00" Grid.Row="18" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="19" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="19:00" Grid.Row="19" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="20" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="20:00" Grid.Row="20" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="21" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="21:00" Grid.Row="21" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="22" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="22:00" Grid.Row="22" HorizontalOptions="Center" VerticalOptions="Start" />
+                            <BoxView BackgroundColor="LightGray" Grid.Row="23" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                            <Label Text="23:00" Grid.Row="23" HorizontalOptions="Center" VerticalOptions="Start" />
+                            
+                        </Grid>
                     </StackLayout>
+                    
+                    <AbsoluteLayout Grid.Column="1">
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,60,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,120,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,180,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,240,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,300,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,360,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,420,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,480,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,540,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,600,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,660,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,720,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,780,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,840,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,900,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,960,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,1020,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,1080,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,1140,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,1200,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,1260,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,1320,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,1380,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
+                        
+
+                    </AbsoluteLayout>
+                    
                     <AbsoluteLayout Grid.Column="1" BindableLayout.ItemsSource="{Binding Actividades}">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
@@ -113,11 +138,6 @@
                                     AbsoluteLayout.LayoutFlags="WidthProportional"/>
                             </DataTemplate>
                         </BindableLayout.ItemTemplate>
-
-                        <BoxView BackgroundColor="Gray" HeightRequest="1" AbsoluteLayout.LayoutBounds="0,60,1,1" AbsoluteLayout.LayoutFlags="WidthProportional"/>
-                        <!--<Button Text="Prueba" BackgroundColor="Gray" CornerRadius="0" AbsoluteLayout.LayoutBounds="0,60,1,120"
-                            AbsoluteLayout.LayoutFlags="WidthProportional"/>-->
-
                     </AbsoluteLayout>
 
                 </Grid>

@@ -132,7 +132,7 @@ namespace Planificador.VistaModelo
         public Rectangle Posicion
         {
             //get { return String.Format("{0},{1},{2},{3}", 0, (int)(tsAEntero(_horaInicio) * 60), 1, _duracion); }
-            get { return new Rectangle(0, (int)(tsAEntero(_horaInicio) * 60) + 2, 1, _duracion); }
+            get { return new Rectangle(0, (int)(tsAEntero(_horaInicio) * 60), 1, _duracion); }
         }
 
         public string TextColor

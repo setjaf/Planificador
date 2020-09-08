@@ -4,19 +4,21 @@
              x:Class="Planificador.Paginas.Tareas"
              Title="Tareas">
     <ContentPage.Content>
-        <StackLayout>
-            <Button Text="Crear una nueva tarea" Clicked="Button_Clicked"/>
-            <ListView x:Name="tareasList" ItemsSource="{Binding ListaTareas}" ItemTapped="tareasList_ItemTapped_1">
-                <ListView.ItemTemplate >
-                    <DataTemplate >
-                        <TextCell Text="{Binding Titulo}" Detail="{Binding Descripcion}" TextColor="{Binding TextColor}">
-                            <TextCell.ContextActions>
-                                <MenuItem Text="Eliminar" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}"/>
-                            </TextCell.ContextActions>
-                        </TextCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>            
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Button Text="Crear una nueva tarea" Clicked="Button_Clicked"/>
+                <ListView x:Name="tareasList" ItemsSource="{Binding ListaTareas}" ItemTapped="tareasList_ItemTapped_1">
+                    <ListView.ItemTemplate >
+                        <DataTemplate >
+                            <TextCell Text="{Binding Titulo}" Detail="{Binding Descripcion}" TextColor="{Binding TextColor}">
+                                <TextCell.ContextActions>
+                                    <MenuItem Text="Eliminar" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}"/>
+                                </TextCell.ContextActions>
+                            </TextCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

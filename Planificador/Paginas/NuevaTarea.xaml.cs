@@ -19,5 +19,11 @@ namespace Planificador.Paginas
 
             this.BindingContext = new VistaModelo.NuevaTareaVistaModelo(Navigation);
         }
+
+        protected override void OnAppearing()
+        {
+            
+            base.OnAppearing();
+        }
     }
 }
