@@ -38,7 +38,6 @@ namespace Planificador.VistaModelo
             var resultado = _tareasN.agregarRecurrenciaATarea(TareaActual.Id, _dia, _horaInicio, Convert.ToInt32(_duracion));
             if (resultado == null)
             {
-                await _navigation.PopModalAsync();
                 TareaActual.CargarRecurrencias();
             }
             else

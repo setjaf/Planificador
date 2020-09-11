@@ -25,10 +25,11 @@ namespace Planificador.Negocio
 
         public List<Actividad> listarActividades(DateTime dia)
         {
-            if (_recurCarRepo.consultarRecurrenciasCargadas(dia) == null)
+            var resultado = _recurCarRepo.consultarRecurrenciasCargadas(dia);
+            if ( (resultado == null) && (dia >= DateTime.Now.Date))
             {
                 cargarRecurrencias(dia);                
-                _recurCarRepo.agregarRecurrenciasCargadas(new RecurrenciasCargadas() { dia = DateTime.Now.Date });
+                int valor=_recurCarRepo.agregarRecurrenciasCargadas(new RecurrenciasCargadas() { dia = dia.Date });
             }
             return _actividadRepo.consultarActividadesPorDia(dia);
         }

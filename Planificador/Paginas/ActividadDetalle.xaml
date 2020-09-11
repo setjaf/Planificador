@@ -1,12 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Planificador.Paginas.ActividadDetalle">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+             x:Class="Planificador.Paginas.ActividadDetalle"
+             xmlns:cvt ="clr-namespace:Planificador.Convertidores"
+             xmlns:local ="clr-namespace:Planificador.VistaModelo"
+             Title="{Binding Path=ActividadActual.Titulo}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cvt:FinalizacionFechaConvertidor x:Key="ffConvertidor"/>
+            <cvt:NegarConvertidor x:Key="nConvertidor"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ScrollView>
+        <StackLayout Padding="20,20,20,0" Orientation="Vertical">
+
+            <Button Text="Editar titulo" Clicked="Button_Clicked_2" CommandParameter="{Binding Path=ActividadActual.Titulo}" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}"/>
+            
+            <Label Text="Descripción" FontSize="Large" FontAttributes="Bold"/>
+            <Label Text="{Binding Path=ActividadActual.Descripcion}" FontSize="Body" IsVisible="{Binding Path=ActividadActual.EsTarea}"/>
+            <Entry Keyboard="Text" HorizontalOptions="FillAndExpand" Text="{Binding Path=ActividadActual.Descripcion}" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}" />
+
+            <Label Text="Día" FontSize="Large" FontAttributes="Bold"/>
+            <DatePicker Date="{Binding Path=ActividadActual.Dia}" Format="dd/MM/yyyy"/>
+
+            <Label Text="Hora de inicio" VerticalOptions="Center" FontSize="Large" FontAttributes="Bold"/>
+            <TimePicker HorizontalOptions="FillAndExpand" Time="{Binding Path=ActividadActual.HoraInicio}"/>
+
+            <Label Text="Duración en minutos" VerticalOptions="Center" FontSize="Large" FontAttributes="Bold"/>
+            <Entry Keyboard="Numeric" HorizontalOptions="FillAndExpand" Text="{Binding Path=ActividadActual.Duracion}"/>
+
+            <Label Text="Color" VerticalOptions="Center" FontSize="Large" FontAttributes="Bold" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}"/>
+            <CollectionView ItemsSource="{Binding Colores}" HeightRequest="85" SelectionMode="Single" VerticalOptions="Start" SelectedItem="{Binding Path=ActividadActual.Color}" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Horizontal" Span="1"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <BoxView HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="{Binding ., StringFormat='#{0}'}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Grid HorizontalOptions="FillAndExpand" HeightRequest="150">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.45*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Objetivos" FontSize="Large" FontAttributes="Bold" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding Path=ActividadActual.EsTarea}"/>
+
+                <ListView ItemsSource="{Binding Path=ActividadActual.Objetivos}" Grid.Row="1" Grid.Column="0" SelectionMode="None" IsVisible="{Binding Path=ActividadActual.EsTarea}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="8*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <CheckBox Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="End" Color="{Binding Source={RelativeSource AncestorType={x:Type local:ActividadVistaModelo}}, Path=TextColor}" 
+                                              IsChecked="{Binding FinalizacionFecha, Converter={StaticResource ffConvertidor}, Mode=TwoWay}"
+                                              />
+                                    <Label Text="{Binding Objetivo}"  Grid.Column="1" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                   
+            </Grid>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Text="Eliminar actividad" Clicked="Button_Clicked" BackgroundColor="DarkRed" TextColor="White" HorizontalOptions="Start"/>
+                <Button Text="Guardar actividad" Command="{Binding GuardarActividadCommand}" BackgroundColor="Gray" HorizontalOptions="End" Grid.Column="1"/>
+            </Grid>
+            
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>

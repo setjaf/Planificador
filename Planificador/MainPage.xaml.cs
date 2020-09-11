@@ -10,14 +10,19 @@ namespace Planificador
 {
     public partial class MainPage : TabbedPage
     {
+        public bool prueba; 
         public MainPage()
         {
-            InitializeComponent();            
-            Children.Add(new Paginas.Tareas());
-            Children.Add(new Paginas.Calendario());
-            
+            InitializeComponent();
+            Children.Add(new Paginas.Actividades());
+            Children.Add(new Paginas.Tareas());            
         }
-        
+
+        //protected override void OnCurrentPageChanged()
+        //{
+        //    base.OnCurrentPageChanged();
+        //}
+
 
     }
 }

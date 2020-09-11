@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cvt="clr-namespace:Planificador.Convertidores"
+             x:Class="Planificador.Paginas.Actividades"
+             Title="Mis planes"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cvt:TimeSpanConvertidor x:Key="tsConvertidor"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="&lt;" WidthRequest="50" BackgroundColor="Transparent" Command="{Binding DiaAnteriorCommand}" />
+            <Label Text="{Binding DiaSeleccionado}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Large"/>
+            <Button Text=">" WidthRequest="50" BackgroundColor="Transparent" Command="{Binding DiaSiguienteCommand}"/>
+        </StackLayout>
+        <Label Text="Sin planes para este día." IsVisible="{Binding EstaVacia}" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" FontSize="Subtitle"/>
+        <ListView x:Name="lista" ItemsSource="{Binding Actividades}" HasUnevenRows="True" SeparatorVisibility="None" IsGroupingEnabled="True" GroupDisplayBinding="{Binding Estado}" SelectionMode="None" ItemTapped="lista_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame BackgroundColor="{Binding BackgroundColor}" Margin="20,10,20,10" CornerRadius="20">
+                            <StackLayout>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Label Text="{Binding Duracion, StringFormat='{0} mins'}" TextColor="White" Grid.RowSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+
+                                    <StackLayout Grid.RowSpan="2" Grid.Column="1">
+                                        <Label Text="{Binding Titulo}" TextColor="White" FontAttributes="Bold" FontSize="Medium"/>
+                                        <Label Text="{Binding Descripcion}" TextColor="White" FontAttributes="Italic" FontSize="Medium"/>
+                                    </StackLayout>
+
+                                    <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" TextColor="White" Grid.Column="2"/>
+                                    <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" TextColor="White" Grid.Column="2" Grid.Row="1"/>
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Eliminar" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}"/>
+                        </ViewCell.ContextActions>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            
+        </ListView>
+        <Button Text="Agregar nueva actividad" Clicked="Button_Clicked"/>
+    </StackLayout>
+</ContentPage>

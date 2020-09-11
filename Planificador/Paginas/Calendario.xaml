@@ -140,7 +140,7 @@
                                     AbsoluteLayout.LayoutFlags="WidthProportional">
                                     <Label Text="{Binding Titulo}"/>
                                     <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
                                 </Frame>
                             </DataTemplate>
@@ -152,7 +152,7 @@
 
                 </Grid>
             </ScrollView>
-            <Button Text="Agregar nueva actividad"/>
+            <Button Text="Agregar nueva actividad" Clicked="Button_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

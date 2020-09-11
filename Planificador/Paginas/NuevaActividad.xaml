@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Planificador.Paginas.NuevaActividad"
+             xmlns:cvt ="clr-namespace:Planificador.Convertidores"
+             Title="Nueva Actividad">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cvt:NegarConvertidor x:Key="nConvertidor"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <StackLayout Padding="20,20,20,0" Orientation="Vertical">
+            <Label Text="Tarea" FontSize="Large" FontAttributes="Bold"/>
+            <Picker ItemsSource="{Binding ListaTareas}" SelectedIndex="{Binding TareaSeleccionada}" />
+
+            <Label Text="Título" FontSize="Large" FontAttributes="Bold" IsVisible="{Binding Path=NuevaActividad.EsTarea, Converter={StaticResource nConvertidor}}"/>
+            <Entry Keyboard="Text" HorizontalOptions="FillAndExpand" Text="{Binding Path=NuevaActividad.Titulo}" IsVisible="{Binding Path=NuevaActividad.EsTarea, Converter={StaticResource nConvertidor}}" />
+
+            <Label Text="Descripción" FontSize="Large" FontAttributes="Bold" IsVisible="{Binding Path=NuevaActividad.EsTarea, Converter={StaticResource nConvertidor}}"/>
+            <!--<Label Text="{Binding Path=NuevaActividad.Descripcion}" IsVisible="{Binding Path=NuevaActividad.EsTarea}"/>-->
+            <Entry Keyboard="Text" HorizontalOptions="FillAndExpand" Text="{Binding Path=NuevaActividad.Descripcion}" IsVisible="{Binding Path=NuevaActividad.EsTarea, Converter={StaticResource nConvertidor}}" />
+
+            <Label Text="Día" FontSize="Large" FontAttributes="Bold"/>
+            <DatePicker Date="{Binding Path=NuevaActividad.Dia}" Format="dd/MM/yyyy" MinimumDate="{Binding Hoy}"/>
+
+            <Label Text="Hora de inicio" VerticalOptions="Center" FontSize="Large" FontAttributes="Bold"/>
+            <TimePicker HorizontalOptions="FillAndExpand" Time="{Binding Path=NuevaActividad.HoraInicio}"/>
+
+            <Label Text="Duración en minutos" VerticalOptions="Center" FontSize="Large" FontAttributes="Bold"/>
+            <Entry Keyboard="Numeric" HorizontalOptions="FillAndExpand" Text="{Binding Path=NuevaActividad.Duracion}"/>
+
+            <Label Text="Color" VerticalOptions="Center" FontSize="Large" FontAttributes="Bold" IsVisible="{Binding Path=NuevaActividad.EsTarea, Converter={StaticResource nConvertidor}}"/>
+            <CollectionView ItemsSource="{Binding Colores}" HeightRequest="85" SelectionMode="Single" VerticalOptions="Start" SelectedItem="{Binding Path=NuevaActividad.Color}" IsVisible="{Binding Path=NuevaActividad.EsTarea, Converter={StaticResource nConvertidor}}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Horizontal" Span="2"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <BoxView HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="{Binding ., StringFormat='#{0}'}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <BoxView CornerRadius="10"
+                WidthRequest="40"
+                HeightRequest="40"
+                VerticalOptions="Center" 
+                IsVisible="{Binding Path=NuevaActividad.EsTarea, Converter={StaticResource nConvertidor}}"
+                BackgroundColor="{Binding Path=NuevaActividad.Color, StringFormat='#{0}'}"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Text="Cancelar" Grid.Column="0" Clicked="Button_Clicked" />
+                <Button Text="Guardar" Grid.Column="1" Command="{Binding GuardarActividadCommand}"/>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

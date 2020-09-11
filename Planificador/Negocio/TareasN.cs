@@ -70,6 +70,10 @@ namespace Planificador.Negocio
                 {
                     this.eliminarRecurrecia(recurrencia.id);
                 }
+                foreach (var actividad in _actividadRepo.consultarActividadesPorTarea(IdTarea))
+                {
+                    _actividadRepo.eliminarActividad(actividad.id);
+                }
                 return true;
             }
             else

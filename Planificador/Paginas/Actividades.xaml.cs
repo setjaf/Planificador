@@ -1,6 +1,7 @@
 ﻿using Planificador.VistaModelo;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,18 +12,25 @@ using Xamarin.Forms.Xaml;
 namespace Planificador.Paginas
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Calendario : ContentPage
+    public partial class Actividades : ContentPage
     {
-        public Calendario()
+        public bool EsVisible;
+        public Actividades()
         {
-
-            ViewModel = new CalendarioVistaModelo();
+            ViewModel = new ActividadesVistaModelo();
+            EsVisible = true;
             InitializeComponent();
+            Device.StartTimer(TimeSpan.FromMinutes(1), () => {
+                Console.WriteLine("Tarea Recurrente cada minuto");
+                ViewModel.CargarActividadesCommand.Execute(null);
+                return true;
+            });
+            
         }
 
-        public CalendarioVistaModelo ViewModel
+        public ActividadesVistaModelo ViewModel
         {
-            get { return BindingContext as CalendarioVistaModelo; }
+            get { return BindingContext as ActividadesVistaModelo; }
             set
             {
                 BindingContext = value;
@@ -35,9 +43,9 @@ namespace Planificador.Paginas
             base.OnAppearing();
         }
 
-        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        private async void lista_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var actividad = (ActividadVistaModelo)((TappedEventArgs)e).Parameter;
+            var actividad = (ActividadVistaModelo)e.Item;
             var navPage = new NavigationPage(new ActividadDetalle(actividad))
             {
                 BarBackgroundColor = Color.FromHex(actividad.BackgroundColor),
@@ -50,15 +58,18 @@ namespace Planificador.Paginas
             await Navigation.PushModalAsync(navPage);
         }
 
-        private void PinchGestureRecognizer_PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
-        {
-            var hola = e;
-            Console.WriteLine("Piched");
-        }
-
         private async void Button_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new NuevaActividad()));
         }
+
+        private async void MenuItem_Clicked(object sender, EventArgs e)
+        {
+            if (await DisplayAlert("Eliminar actividad", "¿Estás seguro de eliminar la actividad?", "Aceptar", "Cancelar"))
+            {
+                ViewModel.EliminarActividadCommand.Execute(((MenuItem)sender).CommandParameter);
+            }
+        }
     }
+
 }

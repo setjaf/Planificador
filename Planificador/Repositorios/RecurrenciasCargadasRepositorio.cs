@@ -23,7 +23,7 @@ namespace Planificador.Repositorios
 
         public RecurrenciasCargadas consultarRecurrenciasCargadas(DateTime dia)
         {
-            return conn.Table<RecurrenciasCargadas>().ToList().Where(x => (x.dia.Date==dia.Date)).FirstOrDefault();
+            return conn.Table<RecurrenciasCargadas>().ToList().Where(x => (x.dia.Date == dia.Date)).FirstOrDefault();
         }
 
         public List<RecurrenciasCargadas> consultarRecurrenciasCargadasPorDiaSemana(DayOfWeek dia)

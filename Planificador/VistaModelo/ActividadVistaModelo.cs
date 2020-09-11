@@ -2,6 +2,7 @@
 using Planificador.Negocio;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
 
@@ -18,6 +19,7 @@ namespace Planificador.VistaModelo
         private string? _descripcion;
         private string? _color;
         private TareasN _tareasN;
+        private ObservableCollection<ObjetivoVistaModelo> _objetivos;
 
         private double tsAEntero( TimeSpan hora)
         {
@@ -41,6 +43,8 @@ namespace Planificador.VistaModelo
                 _titulo = tarea.titulo;
                 _descripcion = tarea.descripcion;
                 _color = tarea.color;
+                _objetivos = new ObservableCollection<ObjetivoVistaModelo>();
+                CargarObjetivos();
             }
             else
             {
@@ -59,6 +63,10 @@ namespace Planificador.VistaModelo
         public int? IdTarea
         {
             get { return _idTarea; }
+            set { 
+                if (SetPropertyValue(ref _idTarea, value)) 
+                    RaisePropertyChanged("EsTarea"); 
+            }
         }
 
         public DateTime Dia
@@ -86,6 +94,11 @@ namespace Planificador.VistaModelo
                     RaisePropertyChanged("Posicion");
                 }
             }
+        }
+
+        public TimeSpan HoraFin
+        {
+            get { return _horaInicio.Add(new TimeSpan(0, _duracion, 0)); }
         }
 
         public int Duracion
@@ -125,6 +138,8 @@ namespace Planificador.VistaModelo
                 {
                     RaisePropertyChanged("TextColor");
                     RaisePropertyChanged("BackgroundColor");
+                    if(_id != 0)
+                        new ActividadesN().modificarActividad(_id, _horaInicio, _dia, _duracion, color: _color);
                 }
             }
         }
@@ -144,5 +159,34 @@ namespace Planificador.VistaModelo
         {
             get { return String.Format("#59{0}",_color); }
         }
+                
+        public bool EsTarea
+        {
+            get
+            {
+                if (_idTarea == null)
+                    return false;
+                return true;
+            }
+        }
+
+        public ObservableCollection<ObjetivoVistaModelo> Objetivos
+        {
+            get
+            {
+                return _objetivos;
+            }
+        }
+
+        public void CargarObjetivos()
+        {
+            _objetivos.Clear();
+            foreach (var objetivo in new TareasN().consultarObjetivos((int)_idTarea))
+            {
+                _objetivos.Add(new ObjetivoVistaModelo(objetivo));
+            }
+            RaisePropertyChanged(nameof(Objetivos));
+        }
+
     }
 }

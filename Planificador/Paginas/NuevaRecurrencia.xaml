@@ -55,7 +55,7 @@
 
                 <BoxView Color="{Binding Path=TareaActual.BackgroundColor}"/>
                 <Label Text="Lunes" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Lunes}" Grid.Row="1" VerticalOptions="Center">
+                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Lunes}" Grid.Row="1" VerticalOptions="Center" HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -73,7 +73,7 @@
 
                 <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="1" />
                 <Label Text="Martes" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Martes}" Grid.Row="1"  Grid.Column="1" VerticalOptions="Center">
+                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Martes}" Grid.Row="1"  Grid.Column="1" VerticalOptions="Center" HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -91,7 +91,7 @@
 
                 <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="2" />
                 <Label Text="Miércoles" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Miercoles}" Grid.Row="1"  Grid.Column="2" VerticalOptions="Center">
+                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Miercoles}" Grid.Row="1"  Grid.Column="2" VerticalOptions="Center" HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -109,7 +109,7 @@
 
                 <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="3" />
                 <Label Text="Jueves" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Jueves}" Grid.Row="1" Grid.Column="3" VerticalOptions="Center">
+                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Jueves}" Grid.Row="1" Grid.Column="3" VerticalOptions="Center" HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -127,7 +127,7 @@
 
                 <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="4" />
                 <Label Text="Viernes" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Viernes}" Grid.Row="1" Grid.Column="4" VerticalOptions="Center">
+                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Viernes}" Grid.Row="1" Grid.Column="4" VerticalOptions="Center" HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -145,7 +145,7 @@
 
                 <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="5" />
                 <Label Text="Sábado" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Sabado}" Grid.Row="1" Grid.Column="5" VerticalOptions="Center">
+                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Sabado}" Grid.Row="1" Grid.Column="5" VerticalOptions="Center" HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -163,7 +163,7 @@
 
                 <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="6" />
                 <Label Text="Domingo" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="6" HorizontalOptions="Center" VerticalOptions="Center"/>
-                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Domingo}" Grid.Row="1" Grid.Column="6" VerticalOptions="Center">
+                <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Domingo}" Grid.Row="1" Grid.Column="6" VerticalOptions="Center" HasUnevenRows="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

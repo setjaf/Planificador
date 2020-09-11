@@ -13,6 +13,7 @@ namespace Planificador.VistaModelo
     {
         private ActividadesN _actN; 
         private List<string> meses = new List<string> { "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" };
+        private List<string> diasSemana = new List<string> {"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" };
         private ObservableCollection<ActividadVistaModelo> _actividades;
         private DateTime _diaSeleccionado;
 
@@ -51,7 +52,7 @@ namespace Planificador.VistaModelo
 
         public string DiaSeleccionado
         {
-            get { return String.Format("{0} de {1} del {2}",_diaSeleccionado.Day, meses[_diaSeleccionado.Month-1], _diaSeleccionado.Year); }
+            get { return String.Format("{3} {0} de {1} del {2}",_diaSeleccionado.Day, meses[_diaSeleccionado.Month-1], _diaSeleccionado.Year, diasSemana[(int)_diaSeleccionado.DayOfWeek]); }
         }
 
         public void DiaSiguiente()

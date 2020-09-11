@@ -84,6 +84,8 @@ namespace Planificador.VistaModelo
                 {
                     RaisePropertyChanged("TextColor");
                     RaisePropertyChanged("BackgroundColor");
+                    if(_id != 0)
+                        new TareasN().modificarTarea(_id,_titulo,_descripcion,_color);
                 }
             }
         }
