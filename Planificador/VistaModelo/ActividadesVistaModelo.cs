@@ -12,6 +12,7 @@ namespace Planificador.VistaModelo
     {
 
         private ObservableCollection<ActividadesG> _actividadesG;
+        private bool _isRefreshing;
         private ActividadesN _actividadesN;
         private ActividadesN _actN;
         private List<string> meses = new List<string> { "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" };
@@ -21,6 +22,7 @@ namespace Planificador.VistaModelo
         private ICommand AgregarActividadCommand;
         private ICommand VerActividadCommand;
         public ICommand CargarActividadesCommand { get; private set; }
+        public ICommand CambioEstadoActividadesCommand { get; private set; }
         public ICommand DiaSiguienteCommand { get; private set; }
         public ICommand DiaAnteriorCommand { get; private set; }
 
@@ -29,6 +31,7 @@ namespace Planificador.VistaModelo
         public ActividadesVistaModelo()
         {
             _actividadesN = new ActividadesN();
+            _isRefreshing = false;
             _actividadesG = new ObservableCollection<ActividadesG>();
             _diaSeleccionado = DateTime.Now;
             _actN = new ActividadesN();
@@ -36,11 +39,30 @@ namespace Planificador.VistaModelo
             DiaAnteriorCommand = new Command(DiaAnterior);
             CargarActividadesCommand = new Command(CargarActividades);
             EliminarActividadCommand = new Command(EliminarActividad);
+            CambioEstadoActividadesCommand = new Command(CambioEstadoActividades);
             CargarActividades();
         }
 
+        public void CambioEstadoActividades()
+        {
+            if (_actividadesG.Count > 0 && _actividadesG[0].Estado == "En Curso")
+            {
+                if (_actividadesG[0][0].HoraFin <= DateTime.Now.TimeOfDay)
+                    CargarActividades();
+            }
+            else if (_actividadesG.Count > 0 && _actividadesG[0].Estado == "Por Realizar")
+            {
+                if (_actividadesG[0][0].HoraInicio <= DateTime.Now.TimeOfDay)
+                    CargarActividades();
+            }else if(_actividadesG.Count >= 2  && _actividadesG[1].Estado == "Por Realizar")
+            {
+                if (_actividadesG[1][0].HoraInicio <= DateTime.Now.TimeOfDay)
+                    CargarActividades();
+            }
+        }
         public void CargarActividades()
         {
+            IsRefreshing = true;
             _actividadesG.Clear();
             var hora = DateTime.Now;
             var enCurso = new ActividadesG() { Estado = "En Curso" };
@@ -65,6 +87,7 @@ namespace Planificador.VistaModelo
                     realizadas.Add(actVM);
                 }
             }
+
             if (enCurso.Count > 0)
                 _actividadesG.Add(enCurso);
             if (porRealizar.Count > 0)
@@ -74,6 +97,7 @@ namespace Planificador.VistaModelo
 
             RaisePropertyChanged("Actividades");
             RaisePropertyChanged("EstaVacia");
+            IsRefreshing = false;
         }
 
         public ObservableCollection<ActividadesG> Actividades
@@ -89,7 +113,6 @@ namespace Planificador.VistaModelo
         public void DiaSiguiente()
         {
             _diaSeleccionado = _diaSeleccionado.AddDays(1);
-            Console.WriteLine(DiaSeleccionado);
             RaisePropertyChanged("DiaSeleccionado");
             CargarActividades();
         }
@@ -97,7 +120,6 @@ namespace Planificador.VistaModelo
         public void DiaAnterior()
         {
             _diaSeleccionado = _diaSeleccionado.AddDays(-1);
-            Console.WriteLine(DiaSeleccionado);
             RaisePropertyChanged("DiaSeleccionado");
             CargarActividades();
         }
@@ -110,7 +132,10 @@ namespace Planificador.VistaModelo
         private void EliminarActividad(object id)
         {
             _actividadesN.eliminarActividad((int)id);
+            CargarActividades();
         }
+
+        public bool IsRefreshing { get { return _isRefreshing; } set { _isRefreshing = value; RaisePropertyChanged(); } }
 
     }
 

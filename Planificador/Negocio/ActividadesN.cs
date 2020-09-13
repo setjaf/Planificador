@@ -3,6 +3,7 @@ using Planificador.Repositorios;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Plugin.LocalNotifications;
 
 namespace Planificador.Negocio
 {
@@ -39,7 +40,7 @@ namespace Planificador.Negocio
             return _tareaRepo.consultarTareas();
         }
 
-        private bool verificarNuevaActividad(Actividad actividad)
+        public Actividad verificarNuevaActividad(Actividad actividad)
         {
 
             var actividades = _actividadRepo.consultarActividadesPorDia(actividad.dia);
@@ -48,18 +49,18 @@ namespace Planificador.Negocio
                 var horaFin = activ.horaInicio.Add(new TimeSpan(0, activ.duracion, 0));
                 if (activ.horaInicio <= actividad.horaInicio && actividad.horaInicio < horaFin)
                 {
-                    return false;
+                    return activ;
                 }
                 else if (activ.horaInicio < actividad.horaInicio.Add(new TimeSpan(0, actividad.duracion, 0)) && actividad.horaInicio.Add(new TimeSpan(0, actividad.duracion, 0)) <= horaFin)
                 {
-                    return false;
+                    return activ;
                 }
             }
 
-            return true;
+            return null;
         }
 
-        public bool agregarActividad(TimeSpan horaInicio, DateTime dia, int duracion, int idTarea = -1, string descripcion = null, string titulo = null, string color = null)
+        public bool agregarActividad(TimeSpan horaInicio, DateTime dia, int duracion, int idTarea = -1, string descripcion = null, string titulo = null, string color = null, bool esRecur = false)
         {
             var nuevaActividad = new Actividad()
             {
@@ -67,7 +68,7 @@ namespace Planificador.Negocio
                 duracion = duracion,
                 horaInicio = horaInicio,
                 idTarea = null,
-                esRecurrencia = false,
+                esRecurrencia = esRecur,
             };
             if (idTarea == -1)
             {
@@ -80,10 +81,26 @@ namespace Planificador.Negocio
                 nuevaActividad.idTarea = idTarea;
             }
 
-            if (verificarNuevaActividad(nuevaActividad))
+            if (verificarNuevaActividad(nuevaActividad) == null)
             {
                 if (_actividadRepo.agregarActividad(nuevaActividad) > 0)
+                {
+                    var nActividad = _actividadRepo.consultarUltimaActividad();
+
+                    if (idTarea!=-1)
+                    {
+                        var tarea = _tareaRepo.consultarTarea(idTarea);
+                        titulo = tarea.titulo;
+                        descripcion = tarea.descripcion;
+                    }
+
+                    string tituloInicio = "Por iniciar " + titulo;
+                    string mensajeInicio = descripcion;
+                    DateTime fechaNotificacion = dia.Date.AddHours(horaInicio.Hours).AddMinutes(horaInicio.Minutes).AddSeconds(-10);
+
+                    CrossLocalNotifications.Current.Show(tituloInicio,mensajeInicio,nActividad.id,fechaNotificacion);
                     return true;
+                }
             }
             return false;
         }
@@ -109,8 +126,11 @@ namespace Planificador.Negocio
 
         public bool eliminarActividad(int idActividad)
         {
-            if (_actividadRepo.eliminarActividad(idActividad)>0)
+            if (_actividadRepo.eliminarActividad(idActividad) > 0)
+            {
+                CrossLocalNotifications.Current.Cancel(idActividad);
                 return true;
+            }
             return false;
         }
 

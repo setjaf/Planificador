@@ -19,10 +19,10 @@
     <ContentPage.Content>        
         <StackLayout Padding="20, 20, 20, 0" Orientation="Vertical">
             
-            <Label Text="Descripción" FontSize="Large" FontAttributes="Bold"/>
+            <Label Text="Descripción" FontSize="Subtitle" FontAttributes="Bold"/>
             <Label Text="{Binding Path=TareaActual.Descripcion}" FontSize="Body"/>
             
-            <Label Text="Color" FontSize="Large" FontAttributes="Bold"/>
+            <Label Text="Color" FontSize="Subtitle" FontAttributes="Bold"/>
             <CollectionView ItemsSource="{Binding Colores}" HeightRequest="85" SelectionMode="Single" VerticalOptions="Start" SelectedItem="{Binding Path=TareaActual.Color}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Horizontal" Span="1"/>
@@ -39,9 +39,9 @@
             <Grid HorizontalOptions="FillAndExpand">
                 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.4*"/>
                     <RowDefinition Height="1*"/>
-                    <RowDefinition Height="0.3*"/>
+                    <RowDefinition Height="0.4*"/>
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
                 
@@ -50,7 +50,7 @@
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
                 
-                <Label Text="Objetivos" FontSize="Large" FontAttributes="Bold" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Label Text="Objetivos" FontSize="Subtitle" FontAttributes="Bold" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Start"/>
                 <Button Text="+" Clicked="Button_Clicked" Grid.Row="0" Grid.Column="1" VerticalOptions="Start"/>
                 
                 <ListView ItemsSource="{Binding Path=TareaActual.Objetivos}" Grid.Row="1" Grid.Column="0" SelectionMode="None">
@@ -65,7 +65,7 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <CheckBox Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="End" Color="{Binding Source={RelativeSource AncestorType={x:Type local:TareaVistaModelo}}, Path=TextColor}" 
+                                    <CheckBox Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="End" Color="{Binding Source={RelativeSource AncestorType={x:Type local:TareaVistaModelo}}, Path=BackgroundColor}" 
                                               IsChecked="{Binding FinalizacionFecha, Converter={StaticResource ffConvertidor}, Mode=TwoWay}"
                                               />
                                     <Label Text="{Binding Objetivo}"  Grid.Column="1" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Start"/>
@@ -78,7 +78,7 @@
                     </ListView.ItemTemplate>
                 </ListView>          
                 
-                <Label Text="Recurrencias" FontSize="Large" FontAttributes="Bold" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Start"/>                
+                <Label Text="Recurrencias" FontSize="Subtitle" FontAttributes="Bold" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Start"/>                
                 <Button Text="+" Clicked="Button_Clicked_1" Grid.Row="2" Grid.Column="1" VerticalOptions="Start"/>
                 
                 <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" RowSpacing="5" ColumnSpacing="0">

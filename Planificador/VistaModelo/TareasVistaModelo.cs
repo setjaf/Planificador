@@ -12,6 +12,7 @@ namespace Planificador.VistaModelo
 {
     public class TareasVistaModelo : BaseVistaModelo
     {
+        private bool _isRefreshing;
         private TareasN _tareaNegocio;
         public ObservableCollection<TareaVistaModelo> ListaTareas { get; private set; }
         public ICommand CargarTareasCommand { get; private set; }
@@ -20,6 +21,7 @@ namespace Planificador.VistaModelo
         public TareasVistaModelo(INavigation navigation)
         {
             _tareaNegocio = new TareasN();
+            _isRefreshing = false;
 
             CargarTareasCommand = new Command(CargarTareas);
             EliminarTareaCommand = new Command(EliminarTarea);
@@ -29,17 +31,25 @@ namespace Planificador.VistaModelo
 
         public void CargarTareas()
         {
+            _isRefreshing = true;
             ListaTareas.Clear();
             foreach (var tarea in _tareaNegocio.listarTareas())
             {
                 ListaTareas.Add(new TareaVistaModelo(tarea));
-            } 
+            }
+            _isRefreshing = false;
         }
 
         public void EliminarTarea(object idTarea)
         {
             _tareaNegocio.eliminarTarea((int)idTarea);
             CargarTareas();
+        }
+
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set { _isRefreshing = value; RaisePropertyChanged(); }
         }
     }
 }

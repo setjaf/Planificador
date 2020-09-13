@@ -13,6 +13,7 @@ namespace Planificador.Negocio
         private RecurrenciaRepositorio _recurrenciaRepo;
         private ActividadRepositorio _actividadRepo;
         private RecurrenciasCargadasRepositorio _recCarRepo;
+        private ActividadesN _actN;
 
         public TareasN()
         {
@@ -21,6 +22,7 @@ namespace Planificador.Negocio
             _recurrenciaRepo = new RecurrenciaRepositorio();
             _recCarRepo = new RecurrenciasCargadasRepositorio();
             _actividadRepo = new ActividadRepositorio();
+            _actN = new ActividadesN();
         }
 
         public List<Tarea> listarTareas()
@@ -133,7 +135,8 @@ namespace Planificador.Negocio
                 {
                     foreach (var recCar in _recCarRepo.consultarRecurrenciasCargadasPorDiaSemana((DayOfWeek)nuevaRecurrencia.dia))
                     {
-                        cargarRecurrencia(nuevaRecurrencia,recCar.dia);                        
+                        if((recCar.dia.Date > DateTime.Now.Date) || (nuevaRecurrencia.horaInicio >= DateTime.Now.TimeOfDay && recCar.dia == DateTime.Now.Date))
+                            cargarRecurrencia(nuevaRecurrencia,recCar.dia);                        
                     }
                     return null;
                 }
@@ -143,59 +146,59 @@ namespace Planificador.Negocio
 
         public bool cargarRecurrencia(Recurrencia recurrencia, DateTime dia)
         {
-            if (agregarActividad(recurrencia.horaInicio, dia, recurrencia.duracion, recurrencia.idTarea))
+            if (_actN.agregarActividad(recurrencia.horaInicio, dia, recurrencia.duracion, recurrencia.idTarea, esRecur:true))
                 return true;
             return false;
         }
 
-        public bool agregarActividad(TimeSpan horaInicio, DateTime dia, int duracion, int idTarea = -1, string descripcion = null, string titulo = null, string color = null)
-        {
-            var nuevaActividad = new Actividad()
-            {
-                dia = dia,
-                duracion = duracion,
-                horaInicio = horaInicio,
-                idTarea = null,
-                esRecurrencia = true
-            };
-            if (idTarea == -1)
-            {
-                nuevaActividad.descripcion = descripcion;
-                nuevaActividad.titulo = titulo;
-                nuevaActividad.color = color;
-            }
-            else
-            {
-                nuevaActividad.idTarea = idTarea;
-            }
+        //public bool agregarActividad(TimeSpan horaInicio, DateTime dia, int duracion, int idTarea = -1, string descripcion = null, string titulo = null, string color = null)
+        //{
+        //    var nuevaActividad = new Actividad()
+        //    {
+        //        dia = dia,
+        //        duracion = duracion,
+        //        horaInicio = horaInicio,
+        //        idTarea = null,
+        //        esRecurrencia = true
+        //    };
+        //    if (idTarea == -1)
+        //    {
+        //        nuevaActividad.descripcion = descripcion;
+        //        nuevaActividad.titulo = titulo;
+        //        nuevaActividad.color = color;
+        //    }
+        //    else
+        //    {
+        //        nuevaActividad.idTarea = idTarea;
+        //    }
 
-            if (verificarNuevaActividad(nuevaActividad))
-            {
-                if (_actividadRepo.agregarActividad(nuevaActividad) > 0)
-                    return true;
-            }
-            return false;
-        }
+        //    if (verificarNuevaActividad(nuevaActividad))
+        //    {
+        //        if (_actividadRepo.agregarActividad(nuevaActividad) > 0)
+        //            return true;
+        //    }
+        //    return false;
+        //}
 
-        private bool verificarNuevaActividad(Actividad actividad)
-        {
+        //private bool verificarNuevaActividad(Actividad actividad)
+        //{
 
-            var actividades = _actividadRepo.consultarActividadesPorDia(actividad.dia);
-            foreach (var activ in actividades)
-            {
-                var horaFin = activ.horaInicio.Add(new TimeSpan(0, activ.duracion, 0));
-                if (activ.horaInicio <= actividad.horaInicio && actividad.horaInicio < horaFin)
-                {
-                    return false;
-                }
-                else if (activ.horaInicio < actividad.horaInicio.Add(new TimeSpan(0, actividad.duracion, 0)) && actividad.horaInicio.Add(new TimeSpan(0, actividad.duracion, 0)) <= horaFin)
-                {
-                    return false;
-                }
-            }
+        //    var actividades = _actividadRepo.consultarActividadesPorDia(actividad.dia);
+        //    foreach (var activ in actividades)
+        //    {
+        //        var horaFin = activ.horaInicio.Add(new TimeSpan(0, activ.duracion, 0));
+        //        if (activ.horaInicio <= actividad.horaInicio && actividad.horaInicio < horaFin)
+        //        {
+        //            return false;
+        //        }
+        //        else if (activ.horaInicio < actividad.horaInicio.Add(new TimeSpan(0, actividad.duracion, 0)) && actividad.horaInicio.Add(new TimeSpan(0, actividad.duracion, 0)) <= horaFin)
+        //        {
+        //            return false;
+        //        }
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
         public Recurrencia? verificarNuevaRecurrencia(Recurrencia recurrencia)
         {
@@ -234,7 +237,10 @@ namespace Planificador.Negocio
             Recurrencia recur = _recurrenciaRepo.consultarRecurrencia(IdRecurrencia);
             if (_recurrenciaRepo.eliminarRecurrencia(IdRecurrencia) > 0)
             {
-                _actividadRepo.eliminarActividadesPorRecurrencia(recur);
+                foreach (var act in _actividadRepo.eliminarActividadesPorRecurrencia(recur))
+                {
+                    _actN.eliminarActividad(act.id);
+                }
                 return true;
             }                
             else

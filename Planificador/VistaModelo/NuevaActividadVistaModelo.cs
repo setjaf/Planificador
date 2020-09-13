@@ -13,72 +13,74 @@ namespace Planificador.VistaModelo
         private TareasN _tareasN;
         private ActividadesN _actividadesN;
         private ActividadVistaModelo _nuevaActividad;
-        private readonly List<string> _colores = new List<string>()
-        {
-            "B71C1C",
-            "F44336",
-            "880E4F",
-            "E91E63",
-            "4A148C",
-            "9C27B0",
-            "311B92",
-            "673AB7",
-            "1A237E",
-            "3F51B5",
-            "0D47A1",
-            "2196F3",
-            "01579B",
-            "03A9F4",
-            "006064",
-            "00BCD4",
-            "004D40",
-            "009688",
-            "1B5E20",
-            "4CAF50",
-            "33691E",
-            "8BC34A",
-            "827717",
-            "CDDC39",
-            "FFD600",
-            "FFFF00",
-            "E65100",
-            "FF9800",
-            "3E2723",
-            "795548",
-            "263238",
-            "607D8B",
-        };
+        private readonly List<string> _colores = Listas.Colores;
         private Dictionary<int, string> _tareas;
         private readonly INavigation _nav;
-        
+        private readonly Page _page;
+
         public ICommand GuardarActividadCommand { get; private set; }
 
-        public NuevaActividadVistaModelo( INavigation nav)
+        public NuevaActividadVistaModelo( INavigation nav, Page page, DateTime diaSeleccionado)
         {
             _tareasN = new TareasN();
             _actividadesN = new ActividadesN();
             _nuevaActividad = new ActividadVistaModelo(new Modelos.Actividad());
-            _nuevaActividad.Dia = DateTime.Now;
+            _nuevaActividad.Dia = diaSeleccionado;
+            _nuevaActividad.HoraInicio = DateTime.Now.TimeOfDay;
             _tareas = new Dictionary<int, string>();
             _nav = nav;
+            _page = page;
             CargarTareas();
             GuardarActividadCommand = new Command(GuardarActividad);
         }
 
         private void GuardarActividad()
         {
-            var res = _actividadesN.agregarActividad(
+
+            if ( 
+                (
+                (!String.IsNullOrWhiteSpace(NuevaActividad.Titulo) && !String.IsNullOrWhiteSpace(NuevaActividad.Color)) 
+                || NuevaActividad.IdTarea != null) && 
+                NuevaActividad.Duracion > 0 )
+            {
+                var res = _actividadesN.agregarActividad(
                 NuevaActividad.HoraInicio,
                 NuevaActividad.Dia,
                 NuevaActividad.Duracion,
-                NuevaActividad.IdTarea!=null?(int)NuevaActividad.IdTarea:-1,
+                NuevaActividad.IdTarea != null ? (int)NuevaActividad.IdTarea : -1,
                 NuevaActividad.Descripcion,
                 NuevaActividad.Titulo,
                 NuevaActividad.Color);
-            if (res)
-            {
-                _nav.PopModalAsync();
+                if (res)
+                {
+                    _nav.PopModalAsync();
+                }
+                else
+                {
+                    var traslape = _actividadesN.verificarNuevaActividad(new Modelos.Actividad() { dia=NuevaActividad.Dia, duracion=NuevaActividad.Duracion, horaInicio=NuevaActividad.HoraInicio });
+                    if (traslape != null)
+                    {
+                        _page.DisplayAlert(
+                            "Actividad no se ha guardado", 
+                            "El día, hora y duración se sobreponen con otra actividad guardada que inicia a las "
+                                +traslape.horaInicio.ToString(@"hh\:mm")
+                                +" y concluye a las " 
+                                +traslape.horaInicio.Add(new TimeSpan(0,traslape.duracion,0)).ToString(@"hh\:mm")
+                                + ", selecciona otro horario para poder guardar la actividad", 
+                            "Aceptar");
+                    }
+                    else
+                    {
+                        _page.DisplayAlert("Actividad no se ha guardado", "La actividad no se ha guardado correctamente, verifica nuevamente los datos.", "Aceptar");
+                    }
+                    
+                }
             }
+            else
+            {
+                _page.DisplayAlert("Datos incompletos", "Verifica que la tarea cuenta con título, una duración mayor o igual a 1 minuto y que has seleccionado un color.","Aceptar");
+            }
+            
         }
 
         public void CargarTareas()

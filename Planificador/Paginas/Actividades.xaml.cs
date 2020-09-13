@@ -20,12 +20,38 @@ namespace Planificador.Paginas
             ViewModel = new ActividadesVistaModelo();
             EsVisible = true;
             InitializeComponent();
-            Device.StartTimer(TimeSpan.FromMinutes(1), () => {
-                Console.WriteLine("Tarea Recurrente cada minuto");
-                ViewModel.CargarActividadesCommand.Execute(null);
-                return true;
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), () => {
+                ViewModel.CambioEstadoActividadesCommand.Execute(null);
+                var resultado = (DateTime.Now.Second % 10) != 0;
+                if (!resultado)
+                {
+                    Timer10();
+                }
+                return resultado;
             });
             
+        }
+
+        public void Timer10()
+        {
+            Device.StartTimer(TimeSpan.FromSeconds(10), () => {
+                ViewModel.CambioEstadoActividadesCommand.Execute(null);
+                var resultado = (DateTime.Now.Second % 60) != 0;
+                if (!resultado)
+                {
+                    Timer60();
+                }
+                return resultado;
+            });
+        }
+
+        public void Timer60()
+        {
+            Device.StartTimer(TimeSpan.FromSeconds(60), () => {
+                ViewModel.CambioEstadoActividadesCommand.Execute(null);
+                return true;
+            });
         }
 
         public ActividadesVistaModelo ViewModel
@@ -60,7 +86,7 @@ namespace Planificador.Paginas
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new NuevaActividad()));
+            await Navigation.PushModalAsync( new NavigationPage( new NuevaActividad( DateTime.Parse(ViewModel.DiaSeleccionado) ) ) );
         }
 
         private async void MenuItem_Clicked(object sender, EventArgs e)

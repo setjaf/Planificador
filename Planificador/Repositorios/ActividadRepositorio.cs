@@ -26,6 +26,11 @@ namespace Planificador.Repositorios
             return conn.Table<Actividad>().Where(x => x.id == idActividad).FirstOrDefault();
         }
 
+        public Actividad consultarUltimaActividad()
+        {
+            return conn.Table<Actividad>().OrderByDescending(x=>x.id).FirstOrDefault();
+        }
+
         public List<Actividad> consultarActividadesPorDia(DateTime dia)
         {
             return conn.Table<Actividad>().ToList().Where(x => x.dia.Date == dia.Date).ToList();
@@ -36,22 +41,19 @@ namespace Planificador.Repositorios
             return conn.Table<Actividad>().Where(x => x.idTarea == idTarea).ToList();
         }
 
-        public int eliminarActividadesPorRecurrencia(Recurrencia recur)
+        public List<Actividad> eliminarActividadesPorRecurrencia(Recurrencia recur)
         {
-            int contador = 0;
+
             List<Actividad> actividades = conn.Table<Actividad>()
                 .ToList()
                 .Where(x => x.esRecurrencia 
                     && ((int)x.dia.DayOfWeek == recur.dia) 
                     && (recur.duracion == x.duracion) 
-                    && (recur.horaInicio == x.horaInicio))
+                    && (recur.horaInicio == x.horaInicio)
+                    && (x.dia.Add(recur.horaInicio) >= DateTime.Now))
                 .ToList();
-            foreach (var actividad in actividades)
-            {
-                if (eliminarActividad(actividad.id) > 0)
-                    contador++;
-            }
-            return contador;
+            
+            return actividades;
         }
 
         public int editarActividad(Actividad actividad)

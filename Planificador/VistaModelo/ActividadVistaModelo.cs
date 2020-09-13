@@ -152,12 +152,13 @@ namespace Planificador.VistaModelo
 
         public string TextColor
         {
-            get { return String.Format("#{0}",_color); }
+            get { return String.Format("#{0}", "FAFAFA"); }
         }
 
         public string BackgroundColor
         {
-            get { return String.Format("#59{0}",_color); }
+            get { return String.Format("#{0}", _color);}
+            // return String.Format("#59{0}",_color); 
         }
                 
         public bool EsTarea

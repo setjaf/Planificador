@@ -92,12 +92,12 @@ namespace Planificador.VistaModelo
 
         public string TextColor
         {
-            get { return String.Format("#{0}", this._color); }
+            get { return String.Format("#{0}", "FAFAFA"); }
         }
 
         public string BackgroundColor
         {
-            get { return String.Format("#59{0}", this._color); }
+            get { return String.Format("#{0}", this._color); }
         }
 
         public ObservableCollection<ObjetivoVistaModelo> Objetivos

@@ -6,17 +6,23 @@
     <ScrollView>
         <StackLayout>
             <Button Text="Crear una nueva tarea" Clicked="Button_Clicked"/>
-            <ListView x:Name="tareasList" ItemsSource="{Binding ListaTareas}" ItemTapped="tareasList_ItemTapped_1">
-                <ListView.ItemTemplate >
-                    <DataTemplate >
-                        <TextCell Text="{Binding Titulo}" Detail="{Binding Descripcion}" TextColor="{Binding TextColor}">
-                            <TextCell.ContextActions>
-                                <MenuItem Text="Eliminar" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}"/>
-                            </TextCell.ContextActions>
-                        </TextCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding CargarTareasCommand}">
+                <ListView x:Name="tareasList" ItemsSource="{Binding ListaTareas}" ItemTapped="tareasList_ItemTapped_1" HasUnevenRows="True">
+                    <ListView.ItemTemplate >
+                        <DataTemplate >
+                            <ViewCell>
+                                <StackLayout Padding="20, 5, 20, 10">
+                                    <Label Text="{Binding Titulo}" TextColor="{Binding BackgroundColor}" FontAttributes="Bold" FontSize="Subtitle" />
+                                    <Label Text="{Binding Descripcion}" FontAttributes="Italic" FontSize="Body"/>
+                                </StackLayout>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Eliminar" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}"/>
+                                </ViewCell.ContextActions>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RefreshView>
         </StackLayout>
     </ScrollView>
 </ContentPage>

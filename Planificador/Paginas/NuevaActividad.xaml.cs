@@ -13,9 +13,9 @@ namespace Planificador.Paginas
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NuevaActividad : ContentPage
     {
-        public NuevaActividad()
+        public NuevaActividad(DateTime diaSeleccionado)
         {
-            ViewModel = new NuevaActividadVistaModelo(Navigation);
+            ViewModel = new NuevaActividadVistaModelo(Navigation, this, diaSeleccionado);
             InitializeComponent();
         }
 
@@ -28,7 +28,6 @@ namespace Planificador.Paginas
         private void Button_Clicked(object sender, EventArgs e)
         {
             Navigation.PopModalAsync();
-            ViewModel.GuardarActividadCommand.Execute(null);
         }
     }
 }
