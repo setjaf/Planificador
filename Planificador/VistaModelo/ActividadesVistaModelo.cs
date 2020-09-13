@@ -105,9 +105,20 @@ namespace Planificador.VistaModelo
             get { return _actividadesG; }
         }
 
+        ///<summary>
+        /// Devuelve el día seleccionado en 'string' formato largo, por ejemplo, Domingo 10 de agosto del 2020
+        ///</summary>
         public string DiaSeleccionado
         {
             get { return String.Format("{3} {0} de {1} del {2}", _diaSeleccionado.Day, meses[_diaSeleccionado.Month - 1], _diaSeleccionado.Year, diasSemana[(int)_diaSeleccionado.DayOfWeek]); }
+        }
+
+        ///<summary>
+        /// Devuelve el día seleccionado en 'Datetime'
+        ///</summary>
+        public DateTime DiaSeleccionadoDT
+        {
+            get { return _diaSeleccionado; }
         }
 
         public void DiaSiguiente()

@@ -86,7 +86,7 @@ namespace Planificador.Paginas
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync( new NavigationPage( new NuevaActividad( DateTime.Parse(ViewModel.DiaSeleccionado) ) ) );
+            await Navigation.PushModalAsync( new NavigationPage( new NuevaActividad( ViewModel.DiaSeleccionadoDT ) ) );
         }
 
         private async void MenuItem_Clicked(object sender, EventArgs e)
