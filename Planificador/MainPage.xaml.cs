@@ -15,7 +15,8 @@ namespace Planificador
         {
             InitializeComponent();
             Children.Add(new Paginas.Actividades());
-            Children.Add(new Paginas.Tareas());            
+            Children.Add(new Paginas.Tareas());
+            Children.Add(new Paginas.Recurrencias());
         }
 
         //protected override void OnCurrentPageChanged()

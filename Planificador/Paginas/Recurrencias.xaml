@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Planificador.Paginas.Recurrencias"
+             Title="Recurrencias">
+    <ScrollView HorizontalScrollBarVisibility="Always" Orientation="Horizontal" >
+
+        <Grid WidthRequest="1070" RowSpacing="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="20*" />
+            </Grid.RowDefinitions>
+
+            <Grid ColumnSpacing="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <BoxView Color="DeepSkyBlue"/>
+                <Label Text="Lunes" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <BoxView Color="DeepSkyBlue" Grid.Column="1"/>
+                <Label Text="Martes" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
+                <BoxView Color="DeepSkyBlue" Grid.Column="2"/>
+                <Label Text="Miércoles" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2"/>
+                <BoxView Color="DeepSkyBlue" Grid.Column="3"/>
+                <Label Text="Jueves" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="3"/>
+                <BoxView Color="DeepSkyBlue" Grid.Column="4"/>
+                <Label Text="Viernes" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="4"/>
+                <BoxView Color="DeepSkyBlue" Grid.Column="5"/>
+                <Label Text="Sábado" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="5"/>
+                <BoxView Color="DeepSkyBlue" Grid.Column="6"/>
+                <Label Text="Domigo" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="6"/>
+            </Grid>
+    
+            
+            <ScrollView Orientation="Vertical" Grid.Row="1" VerticalScrollBarVisibility="Always">
+                <AbsoluteLayout>
+                    <BoxView BackgroundColor="Black" AbsoluteLayout.LayoutBounds="0,0,1,3600" AbsoluteLayout.LayoutFlags="WidthProportional" />
+                    <BoxView BackgroundColor="Red" AbsoluteLayout.LayoutBounds="0,3600,1,3600" AbsoluteLayout.LayoutFlags="WidthProportional" />
+                </AbsoluteLayout>
+            </ScrollView>
+        </Grid>
+        
+        
+        <!--<Grid RowSpacing="5" ColumnSpacing="0" WidthRequest="700">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="10*" />
+            </Grid.RowDefinitions>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}"/>
+            <Label Text="Lunes" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Lunes}" Grid.Row="1" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="1" />
+            <Label Text="Martes" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Martes}" Grid.Row="1"  Grid.Column="1" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="2" />
+            <Label Text="Miércoles" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Miercoles}" Grid.Row="1"  Grid.Column="2" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="3" />
+            <Label Text="Jueves" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Jueves}" Grid.Row="1" Grid.Column="3" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="4" />
+            <Label Text="Viernes" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Viernes}" Grid.Row="1" Grid.Column="4" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="5" />
+            <Label Text="Sábado" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Sabado}" Grid.Row="1" Grid.Column="5" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="6" />
+            <Label Text="Domingo" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="6" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Domingo}" Grid.Row="1" Grid.Column="6" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>-->
+    </ScrollView>
+</ContentPage>
