@@ -14,10 +14,12 @@ namespace Planificador.VistaModelo
         private List<string> _colores = Listas.Colores;
 
         private ActividadVistaModelo _actividadAct;
+        private bool _detallesVisibles;
 
         public ICommand EditarTituloCommand { get; private set; }
         public ICommand EliminarActividadCommand { get; private set; }
         public ICommand GuardarActividadCommand { get; private set; }
+        public ICommand MostrarDetallesCommand { get; private set; }
 
         public ActividadDetalleVistaModelo(ActividadVistaModelo actividad, INavigation nav)
         {
@@ -27,6 +29,7 @@ namespace Planificador.VistaModelo
             EditarTituloCommand = new Command(EditarTitulo);
             EliminarActividadCommand = new Command(EliminarActividad);
             GuardarActividadCommand = new Command(GuardarActividad);
+            MostrarDetallesCommand = new Command(MostrarDetalles);
         }
 
         private void EditarTitulo(object nTitulo) {
@@ -65,6 +68,11 @@ namespace Planificador.VistaModelo
             await _nav.PopModalAsync();
         }
 
+        private void MostrarDetalles()
+        {
+            DetallesVisibles = !DetallesVisibles;
+        }
+
         public ActividadVistaModelo ActividadActual
         {
             get { return _actividadAct; }
@@ -73,6 +81,16 @@ namespace Planificador.VistaModelo
         public List<string> Colores
         {
             get { return _colores; }
+        }
+
+        public bool DetallesVisibles
+        {
+            get { return _detallesVisibles; }
+            set
+            {
+                _detallesVisibles = value;
+                RaisePropertyChanged();
+            }
         }
     }
 }

@@ -13,36 +13,7 @@
     </ContentPage.Resources>
     
     <ScrollView>
-        <StackLayout Padding="20,20,20,0" Orientation="Vertical">
-
-            <Button Text="Editar titulo" Clicked="Button_Clicked_2" CommandParameter="{Binding Path=ActividadActual.Titulo}" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}"/>
-            
-            <Label Text="Descripción" FontSize="Subtitle" FontAttributes="Bold"/>
-            <Label Text="{Binding Path=ActividadActual.Descripcion}" FontSize="Body" IsVisible="{Binding Path=ActividadActual.EsTarea}"/>
-            <Entry Keyboard="Text" HorizontalOptions="FillAndExpand" Text="{Binding Path=ActividadActual.Descripcion}" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}" />
-
-            <Label Text="Día" FontSize="Subtitle" FontAttributes="Bold"/>
-            <DatePicker Date="{Binding Path=ActividadActual.Dia}" Format="dd/MM/yyyy"/>
-
-            <Label Text="Hora de inicio" VerticalOptions="Center" FontSize="Subtitle" FontAttributes="Bold"/>
-            <TimePicker HorizontalOptions="FillAndExpand" Time="{Binding Path=ActividadActual.HoraInicio}"/>
-
-            <Label Text="Duración en minutos" VerticalOptions="Center" FontSize="Subtitle" FontAttributes="Bold"/>
-            <Entry Keyboard="Numeric" HorizontalOptions="FillAndExpand" Text="{Binding Path=ActividadActual.Duracion}"/>
-
-            <Label Text="Color" VerticalOptions="Center" FontSize="Subtitle" FontAttributes="Bold" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}"/>
-            <CollectionView ItemsSource="{Binding Colores}" HeightRequest="85" SelectionMode="Single" VerticalOptions="Start" SelectedItem="{Binding Path=ActividadActual.Color}" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Horizontal" Span="1"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout>
-                            <BoxView HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="{Binding ., StringFormat='#{0}'}"/>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+        <StackLayout Padding="20,20,20,0" Orientation="Vertical">            
 
             <Grid HorizontalOptions="FillAndExpand" HeightRequest="150">
 
@@ -80,6 +51,43 @@
                 </ListView>
                    
             </Grid>
+
+            <Label Text="Ver detalles de la actividad" HorizontalOptions="StartAndExpand" FontSize="Title">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding MostrarDetallesCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <StackLayout IsVisible="{Binding DetallesVisibles}">
+                <Button Text="Editar titulo" Clicked="Button_Clicked_2" CommandParameter="{Binding Path=ActividadActual.Titulo}" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}"/>
+
+                <Label Text="Descripción" FontSize="Subtitle" FontAttributes="Bold"/>
+                <Label Text="{Binding Path=ActividadActual.Descripcion}" FontSize="Body" IsVisible="{Binding Path=ActividadActual.EsTarea}"/>
+                <Entry Keyboard="Text" HorizontalOptions="FillAndExpand" Text="{Binding Path=ActividadActual.Descripcion}" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}" />
+
+                <Label Text="Día" FontSize="Subtitle" FontAttributes="Bold"/>
+                <DatePicker Date="{Binding Path=ActividadActual.Dia}" Format="dd/MM/yyyy"/>
+
+                <Label Text="Hora de inicio" VerticalOptions="Center" FontSize="Subtitle" FontAttributes="Bold"/>
+                <TimePicker HorizontalOptions="FillAndExpand" Time="{Binding Path=ActividadActual.HoraInicio}"/>
+
+                <Label Text="Duración en minutos" VerticalOptions="Center" FontSize="Subtitle" FontAttributes="Bold"/>
+                <Entry Keyboard="Numeric" HorizontalOptions="FillAndExpand" Text="{Binding Path=ActividadActual.Duracion}"/>
+
+                <Label Text="Color" VerticalOptions="Center" FontSize="Subtitle" FontAttributes="Bold" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}"/>
+                <CollectionView ItemsSource="{Binding Colores}" HeightRequest="85" SelectionMode="Single" VerticalOptions="Start" SelectedItem="{Binding Path=ActividadActual.Color}" IsVisible="{Binding Path=ActividadActual.EsTarea, Converter={StaticResource nConvertidor}}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Horizontal" Span="1"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <BoxView HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" CornerRadius="15" BackgroundColor="{Binding ., StringFormat='#{0}'}"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
 
             <Button Text="Guardar actividad" Command="{Binding GuardarActividadCommand}" />
 

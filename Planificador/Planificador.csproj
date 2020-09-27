@@ -19,6 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Paginas\RecurrenciasSemana.xaml.cs">
+      <DependentUpon>RecurrenciasSemana.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Paginas\ActividadDetalle.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -34,7 +40,7 @@
     <EmbeddedResource Update="Paginas\NuevaTarea.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Paginas\Recurrencias.xaml">
+    <EmbeddedResource Update="Paginas\RecurrenciasSemana.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Paginas\TareaDetalle.xaml">

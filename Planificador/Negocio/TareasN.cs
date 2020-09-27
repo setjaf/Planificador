@@ -286,5 +286,10 @@ namespace Planificador.Negocio
         {
             return _recurrenciaRepo.consultarRecurrencias(IdTarea);
         }
+
+        public List<Recurrencia> consultarRecurrencias()
+        {
+            return _recurrenciaRepo.consultarRecurrencias();
+        }
     }
 }

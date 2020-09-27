@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cvt="clr-namespace:Planificador.Convertidores"
+             x:Class="Planificador.Paginas.RecurrenciasSemana"
+             Title="Mi horario">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cvt:TimeSpanConvertidor x:Key="tsConvertidor"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <ScrollView HorizontalScrollBarVisibility="Always" Orientation="Horizontal" >
+
+            <Grid WidthRequest="1400" RowSpacing="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="20*" />
+                </Grid.RowDefinitions>
+
+                <Grid ColumnSpacing="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <BoxView Color="LightGray" Grid.Column="0"/>
+                    <Label Text="Domingo" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0"/>
+                    <BoxView Color="LightGray" Grid.Column="1"/>
+                    <Label Text="Lunes" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1"/>
+                    <BoxView Color="LightGray" Grid.Column="2"/>
+                    <Label Text="Martes" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="2"/>
+                    <BoxView Color="LightGray" Grid.Column="3"/>
+                    <Label Text="Miércoles" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="3"/>
+                    <BoxView Color="LightGray" Grid.Column="4"/>
+                    <Label Text="Jueves" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="4"/>
+                    <BoxView Color="LightGray" Grid.Column="5"/>
+                    <Label Text="Viernes" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="5"/>
+                    <BoxView Color="LightGray" Grid.Column="6"/>
+                    <Label Text="Sábado" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="6"/>
+                </Grid>
+
+    
+                <ScrollView Orientation="Vertical" Grid.Row="1" VerticalScrollBarVisibility="Always">
+                    <AbsoluteLayout BindableLayout.ItemsSource="{Binding Recurrencias}" x:Name="absLay">
+
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="{Binding BackgroundColor}" CornerRadius="5" Padding="10,0,10,0" AbsoluteLayout.LayoutBounds="{Binding Posicion}" >
+                                    <StackLayout>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="2*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="{Binding Duracion}"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Label Text="{Binding Titulo}" TextColor="White" FontAttributes="Bold" FontSize="Subtitle" VerticalOptions="CenterAndExpand"/>
+
+                                            <StackLayout Grid.Column="1" VerticalOptions="FillAndExpand" Orientation="Horizontal" HorizontalOptions="End">
+                                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" TextColor="White"  VerticalOptions="Center"/>
+                                                <Label Text="-" TextColor="White" VerticalOptions="Center"/>
+                                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" TextColor="White" VerticalOptions="Center"/>
+                                            </StackLayout>
+                                        </Grid>
+                                    </StackLayout>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+
+                        <!--<BoxView BackgroundColor="LightGray" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="WidthProportional" />
+                    <Label Text="00:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="0,0,40,40"/>
+                    <Label Text="00:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="201,0,40,40"/>
+                    <Label Text="00:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="402,0,40,40"/>
+                    <Label Text="00:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="603,0,40,40"/>
+                    <Label Text="00:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="804,0,40,40"/>
+                    <Label Text="00:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="1005,0,40,40"/>
+                    <Label Text="00:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="1206,0,40,40"/>
+
+                    <BoxView BackgroundColor="LightGray" AbsoluteLayout.LayoutBounds="0,60,1,1" AbsoluteLayout.LayoutFlags="WidthProportional" />
+                    <Label Text="01:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="0,60,40,40"/>
+                    <Label Text="01:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="201,60,40,40"/>
+                    <Label Text="01:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="402,60,40,40"/>
+                    <Label Text="01:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="603,60,40,40"/>
+                    <Label Text="01:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="804,60,40,40"/>
+                    <Label Text="01:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="1005,60,40,40"/>
+                    <Label Text="01:00" TextColor="LightGray" FontAttributes="Bold" AbsoluteLayout.LayoutBounds="1206,60,40,40"/>-->
+
+                        <!--<Frame BackgroundColor="BlueViolet" CornerRadius="5" Padding="10,4,10,4" AbsoluteLayout.LayoutBounds=" 200, 60, 200, 60">
+                        <StackLayout>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackLayout Grid.Column="0" VerticalOptions="Center">
+                                    <Label Text="Prueba de un nombre largo para tarea" TextColor="White" FontAttributes="Bold" FontSize="Subtitle" VerticalOptions="CenterAndExpand"/>
+                                </StackLayout>
+
+                                <StackLayout Grid.Column="1" VerticalOptions="FillAndExpand" Orientation="Horizontal" HorizontalOptions="End">
+                                    <Label Text="01:00" TextColor="White"  VerticalOptions="Center"/>
+                                    <Label Text="-" TextColor="White" VerticalOptions="Center"/>
+                                    <Label Text="02:00" TextColor="White" VerticalOptions="Center"/>
+                                </StackLayout>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>-->
+
+                        <!--<Grid RowSpacing="0" AbsoluteLayout.LayoutBounds="0,0,50,1" AbsoluteLayout.LayoutFlags="HeightProportional">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+
+                        <BoxView BackgroundColor="LightGray" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="00:00" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="1" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="01:00" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="2" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="02:00" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="3" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="03:00" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="4" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="04:00" Grid.Row="4" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="5" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="05:00" Grid.Row="5" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="6" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="06:00" Grid.Row="6" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="7" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="07:00" Grid.Row="7" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="8" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="08:00" Grid.Row="8" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="9" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="09:00" Grid.Row="9" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="10" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="10:00" Grid.Row="10" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="11" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="11:00" Grid.Row="11" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="12" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="12:00" Grid.Row="12" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="13" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="13:00" Grid.Row="13" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="14" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="14:00" Grid.Row="14" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="15" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="15:00" Grid.Row="15" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="16" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="16:00" Grid.Row="16" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="17" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="17:00" Grid.Row="17" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="18" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="18:00" Grid.Row="18" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="19" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="19:00" Grid.Row="19" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="20" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="20:00" Grid.Row="20" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="21" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="21:00" Grid.Row="21" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="22" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="22:00" Grid.Row="22" HorizontalOptions="Center" VerticalOptions="Start" />
+                        <BoxView BackgroundColor="LightGray" Grid.Row="23" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="23:00" Grid.Row="23" HorizontalOptions="Center" VerticalOptions="Start" />
+
+                    </Grid>-->
+                        <!--<BoxView BackgroundColor="Black" AbsoluteLayout.LayoutBounds="0,0,1,3600" AbsoluteLayout.LayoutFlags="WidthProportional" />
+                    <BoxView BackgroundColor="Red" AbsoluteLayout.LayoutBounds="0,3600,1,3600" AbsoluteLayout.LayoutFlags="WidthProportional" />-->
+                    </AbsoluteLayout>
+                </ScrollView>
+            </Grid>
+
+
+            <!--<Grid RowSpacing="5" ColumnSpacing="0" WidthRequest="700">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="10*" />
+            </Grid.RowDefinitions>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}"/>
+            <Label Text="Lunes" TextColor="{Binding Path=TareaActual.TextColor}" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Lunes}" Grid.Row="1" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="1" />
+            <Label Text="Martes" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Martes}" Grid.Row="1"  Grid.Column="1" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="2" />
+            <Label Text="Miércoles" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Miercoles}" Grid.Row="1"  Grid.Column="2" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="3" />
+            <Label Text="Jueves" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="3" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Jueves}" Grid.Row="1" Grid.Column="3" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="4" />
+            <Label Text="Viernes" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Viernes}" Grid.Row="1" Grid.Column="4" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="5" />
+            <Label Text="Sábado" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="5" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Sabado}" Grid.Row="1" Grid.Column="5" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <BoxView Color="{Binding Path=TareaActual.BackgroundColor}" Grid.Column="6" />
+            <Label Text="Domingo" TextColor="{Binding Path=TareaActual.TextColor}" Grid.Column="6" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <ListView ItemsSource="{Binding Path=TareaActual.Recurrencias.Domingo}" Grid.Row="1" Grid.Column="6" VerticalOptions="Center" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding HoraInicio, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                                <Label Text="{Binding HoraFin, Converter={StaticResource Key=tsConvertidor}}" HorizontalOptions="Center"/>
+                            </StackLayout>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Clicked="MenuItem_Clicked" CommandParameter="{Binding Id}" />
+                            </ViewCell.ContextActions>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>-->
+        </ScrollView>
+        <Button Text="Agregar recurrencia" VerticalOptions="FillAndExpand" Clicked="Button_Clicked"/>
+    </StackLayout>
+</ContentPage>

@@ -38,6 +38,7 @@ namespace Planificador.VistaModelo
                 ListaTareas.Add(new TareaVistaModelo(tarea));
             }
             _isRefreshing = false;
+            RaisePropertyChanged("IsRefreshing");
         }
 
         public void EliminarTarea(object idTarea)

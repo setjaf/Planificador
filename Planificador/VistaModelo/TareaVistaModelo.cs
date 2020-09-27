@@ -130,6 +130,7 @@ namespace Planificador.VistaModelo
         {
             _recurrencias.CargarRecurrencias(new TareasN().consultarRecurrencias(_id));
             RaisePropertyChanged(nameof(Recurrencias));
+            RaisePropertyChanged(nameof(BackgroundColor));
         }
     }
 }

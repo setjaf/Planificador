@@ -11,6 +11,11 @@
     <ContentPage.Content>
         <StackLayout Padding="20,20,20,0">
 
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding pickerVisible}">
+                <Label Text="Tarea" VerticalOptions="Center"/>
+                <Picker HorizontalOptions="FillAndExpand" SelectedIndex="{Binding TareaSeleccionada, Mode=TwoWay}" ItemsSource="{Binding ListaTareas}" />
+            </StackLayout>
+
             <StackLayout Orientation="Horizontal">
                 <Label Text="Día" VerticalOptions="Center"/>
                 <Picker Title="Día de la semana" HorizontalOptions="FillAndExpand" SelectedIndex="{Binding Dia}">

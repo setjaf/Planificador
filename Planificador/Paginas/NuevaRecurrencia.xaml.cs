@@ -16,6 +16,10 @@ namespace Planificador.Paginas
         public NuevaRecurrencia(TareaVistaModelo tareaActual)
         {
             ViewModel = new NuevaRecurrenciaVistaModelo(tareaActual, Navigation, this);
+            if (tareaActual == null)
+            {
+                ViewModel.TareaSeleccionada = 0;
+            }
             InitializeComponent();
         }
 
