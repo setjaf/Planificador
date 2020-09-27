@@ -18,6 +18,7 @@ namespace Planificador.VistaModelo
         private string? _titulo;
         private string? _descripcion;
         private string? _color;
+        private string? _comentarios;
         private TareasN _tareasN;
         private ObservableCollection<ObjetivoVistaModelo> _objetivos;
 
@@ -34,6 +35,7 @@ namespace Planificador.VistaModelo
             _dia = actividad.dia;
             _horaInicio = actividad.horaInicio;
             _duracion = actividad.duracion;
+            _comentarios = actividad.comentarios;
             
             _idTarea = actividad.idTarea;
 
@@ -139,9 +141,15 @@ namespace Planificador.VistaModelo
                     RaisePropertyChanged("TextColor");
                     RaisePropertyChanged("BackgroundColor");
                     if(_id != 0)
-                        new ActividadesN().modificarActividad(_id, _horaInicio, _dia, _duracion, color: _color);
+                        new ActividadesN().modificarActividad(_id, _horaInicio, _dia, _duracion, color: _color, comentarios:_comentarios);
                 }
             }
+        }
+
+        public string? Comentarios
+        {
+            get { return _comentarios; }
+            set { SetPropertyValue(ref _comentarios, value); }
         }
 
         public Rectangle Posicion

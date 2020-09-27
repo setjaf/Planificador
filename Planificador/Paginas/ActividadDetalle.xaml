@@ -13,9 +13,11 @@
     </ContentPage.Resources>
     
     <ScrollView>
-        <StackLayout Padding="20,20,20,0" Orientation="Vertical">            
+        <StackLayout Padding="20,20,20,0" Orientation="Vertical">
+            <Label Text="Notas" FontSize="Subtitle" FontAttributes="Bold" />
+            <Editor Keyboard="Text" Text="{Binding Path=ActividadActual.Comentarios}" HeightRequest="300"/>
 
-            <Grid HorizontalOptions="FillAndExpand" HeightRequest="150">
+            <Grid HorizontalOptions="FillAndExpand" HeightRequest="150" IsVisible="{Binding Path=ActividadActual.EsTarea}">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.45*"/>

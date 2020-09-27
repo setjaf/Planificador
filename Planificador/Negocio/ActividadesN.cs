@@ -60,7 +60,7 @@ namespace Planificador.Negocio
             return null;
         }
 
-        public bool agregarActividad(TimeSpan horaInicio, DateTime dia, int duracion, int idTarea = -1, string descripcion = null, string titulo = null, string color = null, bool esRecur = false)
+        public bool agregarActividad(TimeSpan horaInicio, DateTime dia, int duracion, int idTarea = -1, string descripcion = null, string titulo = null, string color = null, bool esRecur = false, string? comentarios = null)
         {
             var nuevaActividad = new Actividad()
             {
@@ -69,6 +69,7 @@ namespace Planificador.Negocio
                 horaInicio = horaInicio,
                 idTarea = null,
                 esRecurrencia = esRecur,
+                comentarios = comentarios,
             };
             if (idTarea == -1)
             {
@@ -105,13 +106,14 @@ namespace Planificador.Negocio
             return false;
         }
 
-        public bool modificarActividad(int idActividad,TimeSpan horaInicio, DateTime dia, int duracion, string descripcion = null, string titulo = null, string color = null)
+        public bool modificarActividad(int idActividad,TimeSpan horaInicio, DateTime dia, int duracion, string descripcion = null, string titulo = null, string color = null, string? comentarios = null)
         {
             var actividad = _actividadRepo.consultarActividad(idActividad);
 
             actividad.horaInicio = horaInicio;
             actividad.duracion = duracion;
             actividad.dia = dia;
+            actividad.comentarios = comentarios;
             actividad.descripcion = descripcion ?? actividad.descripcion;
             actividad.titulo = titulo ?? actividad.titulo;
             actividad.color = color ?? actividad.color;

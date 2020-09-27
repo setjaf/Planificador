@@ -48,7 +48,8 @@ namespace Planificador.VistaModelo
                     _actividadAct.Duracion,
                     _actividadAct.Descripcion,
                     _actividadAct.Titulo,
-                    _actividadAct.Color);
+                    _actividadAct.Color,
+                    comentarios:_actividadAct.Comentarios);
             }
             else
             {
@@ -56,8 +57,8 @@ namespace Planificador.VistaModelo
                     _actividadAct.Id,
                     _actividadAct.HoraInicio,
                     _actividadAct.Dia,
-                    _actividadAct.Duracion
-                    );
+                    _actividadAct.Duracion,
+                    comentarios:_actividadAct.Comentarios);
             }
             
         }

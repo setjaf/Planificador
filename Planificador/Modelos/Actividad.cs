@@ -31,5 +31,7 @@ namespace Planificador.Modelos
 
         [NotNull]
         public bool esRecurrencia { get; set; }
+
+        public string? comentarios { get; set; }
     }
 }
