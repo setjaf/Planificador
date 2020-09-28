@@ -11,7 +11,11 @@
             <cvt:NegarConvertidor x:Key="nConvertidor"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Ver notas" Order="Secondary" Clicked="ToolbarItem_Clicked" CommandParameter="{Binding Path=ActividadActual.IdTarea}"/>
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
         <StackLayout Padding="20,20,20,0" Orientation="Vertical">
             <Label Text="Notas" FontSize="Subtitle" FontAttributes="Bold" />

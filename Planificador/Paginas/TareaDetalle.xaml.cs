@@ -81,5 +81,10 @@ namespace Planificador.Paginas
                 await DisplayAlert("Error al guardar el color", "El texto que indica el color debe contener 6 caracteres que representan el color en hexadecimal", "Aceptar");
         }
 
+        private void ToolbarItem_Clicked_3(object sender, EventArgs e)
+        {
+            var idTarea = (int)((ToolbarItem)sender).CommandParameter;
+            Navigation.PushAsync(new NotasPorTarea(idTarea));
+        }
     }
 }

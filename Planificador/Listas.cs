@@ -41,5 +41,8 @@ namespace Planificador
             "263238",
             "607D8B",
         };
+        public static List<string> Meses = new List<string> { "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" };
+        public static List<string> Dias = new List<string> { "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" };
+
     }
 }

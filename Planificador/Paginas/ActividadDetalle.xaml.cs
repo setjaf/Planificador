@@ -44,5 +44,11 @@ namespace Planificador.Paginas
                 ViewModel.EliminarActividadCommand.Execute(null);
             }
         }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            var idTarea = (int)((ToolbarItem)sender).CommandParameter;
+            Navigation.PushAsync(new NotasPorTarea(idTarea));
+        }
     }
 }

@@ -15,8 +15,8 @@ namespace Planificador.VistaModelo
         private bool _isRefreshing;
         private ActividadesN _actividadesN;
         private ActividadesN _actN;
-        private List<string> meses = new List<string> { "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" };
-        private List<string> diasSemana = new List<string> { "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" };
+        private List<string> meses = Listas.Meses;
+        private List<string> diasSemana = Listas.Dias;
         private DateTime _diaSeleccionado;
 
         private ICommand AgregarActividadCommand;

@@ -33,12 +33,12 @@ namespace Planificador.Repositorios
 
         public List<Actividad> consultarActividadesPorDia(DateTime dia)
         {
-            return conn.Table<Actividad>().ToList().Where(x => x.dia.Date == dia.Date).ToList();
+            return conn.Table<Actividad>().ToList().Where(x => x.dia.Date == dia.Date).OrderBy(x => x.horaInicio).ToList();
         }
 
         public List<Actividad> consultarActividadesPorTarea(int idTarea)
         {
-            return conn.Table<Actividad>().Where(x => x.idTarea == idTarea).ToList();
+            return conn.Table<Actividad>().ToList().Where(x => x.idTarea == idTarea).OrderByDescending(x => x.dia.Add(x.horaInicio)).ToList();
         }
 
         public List<Actividad> eliminarActividadesPorRecurrencia(Recurrencia recur)

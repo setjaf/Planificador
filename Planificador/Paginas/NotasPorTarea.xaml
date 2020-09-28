@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Planificador.Paginas.NotasPorTarea"
+             Title="Notas">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BindableLayout.ItemsSource="{Binding Actividades}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="10,10,10,30">
+                            <Label Text="{Binding FechaCompleta}" FontSize="Subtitle" FontAttributes="Bold"/>
+                            <Label Text="{Binding Comentarios}" FontSize="Body"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+
+                <StackLayout Margin="10,10,10,30">
+                    <Label Text="Lunes 28 de agosto de 2020" FontSize="Subtitle" FontAttributes="Bold"/>
+                    <Label Text="Esta es la prueba de un comentario en la actividad actual" FontSize="Body"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>        
+    </ContentPage.Content>
+</ContentPage>

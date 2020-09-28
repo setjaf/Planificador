@@ -20,6 +20,8 @@ namespace Planificador.VistaModelo
         private string? _color;
         private string? _comentarios;
         private TareasN _tareasN;
+        private List<string> diasSemana = Listas.Dias;
+        private List<string> meses = Listas.Meses;
         private ObservableCollection<ObjetivoVistaModelo> _objetivos;
 
         private double tsAEntero( TimeSpan hora)
@@ -82,6 +84,11 @@ namespace Planificador.VistaModelo
                     RaisePropertyChanged();
                 }
             }
+        }
+
+        public string FechaCompleta
+        {
+            get { return String.Format("{3} {0} de {1} del {2} - {4}", _dia.Day, meses[_dia.Month - 1], _dia.Year, diasSemana[(int)_dia.DayOfWeek], _horaInicio.ToString(@"hh\:mm")); }
         }
 
         public TimeSpan HoraInicio

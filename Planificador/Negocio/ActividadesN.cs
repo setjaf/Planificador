@@ -35,6 +35,11 @@ namespace Planificador.Negocio
             return _actividadRepo.consultarActividadesPorDia(dia);
         }
 
+        public List<Actividad> listarActividades(int idTarea)
+        {
+            return _actividadRepo.consultarActividadesPorTarea(idTarea);
+        }
+
         public List<Tarea> listarTareas()
         {
             return _tareaRepo.consultarTareas();
@@ -154,5 +159,7 @@ namespace Planificador.Negocio
                 return true;
             return false;
         }
+
+
     }
 }
