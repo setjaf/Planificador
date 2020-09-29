@@ -19,7 +19,14 @@
     <ScrollView>
         <StackLayout Padding="20,20,20,0" Orientation="Vertical">
             <Label Text="Notas" FontSize="Subtitle" FontAttributes="Bold" />
-            <Editor Keyboard="Text" Text="{Binding Path=ActividadActual.Comentarios}" HeightRequest="300"/>
+            <ScrollView HeightRequest="300" IsVisible="{Binding ShowEditor, Converter={StaticResource nConvertidor}}}">
+                <Label Text="{Binding Path=ActividadActual.Comentarios, Mode=OneWay}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MostrarEditorCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </ScrollView>
+            <Editor Keyboard="Text" Text="{Binding Path=ActividadActual.Comentarios}" HeightRequest="300" IsVisible="{Binding ShowEditor}"/>
 
             <Grid HorizontalOptions="FillAndExpand" HeightRequest="150" IsVisible="{Binding Path=ActividadActual.EsTarea}">
 
@@ -29,12 +36,14 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
                 <Label Text="Objetivos" FontSize="Subtitle" FontAttributes="Bold" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding Path=ActividadActual.EsTarea}"/>
+                <Button Text="+" Clicked="Button_Clicked_1" Grid.Row="0" Grid.Column="1" VerticalOptions="Start"/>
 
-                <ListView ItemsSource="{Binding Path=ActividadActual.Objetivos}" Grid.Row="1" Grid.Column="0" SelectionMode="None" IsVisible="{Binding Path=ActividadActual.EsTarea}">
+                <ListView ItemsSource="{Binding Path=ActividadActual.Objetivos}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  SelectionMode="None" IsVisible="{Binding Path=ActividadActual.EsTarea}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

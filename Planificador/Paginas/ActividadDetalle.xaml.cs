@@ -50,5 +50,12 @@ namespace Planificador.Paginas
             var idTarea = (int)((ToolbarItem)sender).CommandParameter;
             Navigation.PushAsync(new NotasPorTarea(idTarea));
         }
+
+        private async void Button_Clicked_1(object sender, EventArgs e)
+        {
+            var texto = await DisplayPromptAsync("Nuevo objetivo", "Escribe aquí el nuevo objetivo", "Guardar", "Cancelar", keyboard: Keyboard.Text);
+            if (!String.IsNullOrEmpty(texto))
+                ViewModel.AgregarObjetivoCommand.Execute(texto);
+        }
     }
 }

@@ -156,7 +156,7 @@ namespace Planificador.VistaModelo
         public string? Comentarios
         {
             get { return _comentarios; }
-            set { SetPropertyValue(ref _comentarios, value); }
+            set { _comentarios = value; RaisePropertyChanged(); }
         }
 
         public Rectangle Posicion
