@@ -87,7 +87,7 @@ namespace Planificador.VistaModelo
         public void AgregarObjetivo(object nuevoObjetivo)
         {
             var nuevoObj = (string)nuevoObjetivo;
-            if (new TareasN().agregarObjetivoATarea(_actividadAct.Id, nuevoObj))
+            if (new TareasN().agregarObjetivoATarea((int)_actividadAct.IdTarea, nuevoObj))
             {
                 _actividadAct.CargarObjetivos();
             }
